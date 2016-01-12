@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <!-- To enable JMX Management -->
+    <jmxConfigurator/>
+
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>C:/Java/javaops.ru/logs/javaops.log</file>
+
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%date %-5level %logger{0} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%-5level %logger{0} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework.web" level="debug"/>
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="debug"/>
+    <logger name="org.springframework.security.web.csrf.CsrfFilter" level="debug"/>
+    <logger name="ru.javaops.platform" level="debug"/>
+
+    <root level="INFO">
+        <appender-ref ref="file"/>
+        <appender-ref ref="console"/>
+    </root>
+
+    <!-- The FILE and ASYNC appenders are here as examples for a production configuration -->
+    <!--
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                <fileNamePattern>logFile.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <maxHistory>90</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <charset>utf-8</charset>
+                <Pattern>%d %-5level [%thread] %logger{0}: %msg%n</Pattern>
+            </encoder>
+        </appender>
+
+        <appender name="ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+            <queueSize>512</queueSize>
+            <appender-ref ref="FILE"/>
+        </appender>
+    -->
+</configuration>
