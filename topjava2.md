@@ -11,3 +11,5 @@
        Mvn process resources (debug)
 
    9.2 Fix: default configuration and delimiter @:  https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-1.3-Release-Notes#maven-resources-filtering
+
+10. Deploy to AWS

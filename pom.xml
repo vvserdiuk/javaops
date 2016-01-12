@@ -76,15 +76,15 @@
             </activation>
             <properties>
                 <logback.level>INFO</logback.level>
-                <logback.dir>C:/Java/javaops.ru/log</logback.dir>
-                <db.dir>C:/Java/javaops.ru/config</db.dir>
+                <logback.dir>C:/Java/javaops.ru/logs</logback.dir>
+                <db.dir>C:/Java/javaops.ru/db</db.dir>
             </properties>
         </profile>
         <profile>
             <id>aws</id>
             <properties>
                 <logback.level>WARN</logback.level>
-                <logback.dir>~/log</logback.dir>
+                <logback.dir>~/logs</logback.dir>
                 <db.dir>~/db</db.dir>
             </properties>
         </profile>
