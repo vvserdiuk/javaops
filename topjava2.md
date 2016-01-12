@@ -5,3 +5,4 @@
 5. Security/ UserDetailService/ LoggedUser
 6. Add Rest
 7. Add mail
+8. Switch to war: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file
