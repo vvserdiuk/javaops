@@ -68,7 +68,47 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>local</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <logback.level>INFO</logback.level>
+                <logback.dir>C:/Java/javaops.ru/log</logback.dir>
+                <db.dir>C:/Java/javaops.ru/config</db.dir>
+            </properties>
+        </profile>
+        <profile>
+            <id>aws</id>
+            <properties>
+                <logback.level>WARN</logback.level>
+                <logback.dir>~/log</logback.dir>
+                <db.dir>~/db</db.dir>
+            </properties>
+        </profile>
+    </profiles>
+
     <build>
         <finalName>javaops</finalName>
+        <resources>
+            <resource>
+                <filtering>true</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <includes>
+                    <include>application.properties</include>
+                    <include>logback.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <filtering>false</filtering>
+                <directory>${basedir}/src/main/resources</directory>
+                <excludes>
+                    <exclude>application.properties</exclude>
+                    <exclude>logback.xml</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 </project>
