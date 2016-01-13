@@ -78,6 +78,7 @@
                 <logback.level>INFO</logback.level>
                 <logback.dir>C:/Java/javaops.ru/logs</logback.dir>
                 <db.dir>C:/Java/javaops.ru/db</db.dir>
+                <profiles.active>dev</profiles.active>
             </properties>
         </profile>
         <profile>
@@ -86,6 +87,7 @@
                 <logback.level>WARN</logback.level>
                 <logback.dir>~/logs</logback.dir>
                 <db.dir>~/db</db.dir>
+                <profiles.active>prod</profiles.active>
             </properties>
         </profile>
     </profiles>
