@@ -33,7 +33,7 @@ AWS:
 - Generate and convert key
 - <a href="http://docs.aws.amazon.com/AmazonVPC/latest/GettingStartedGuide/getting-started-assign-eip.html">Assign an Elastic IP Address to Your Instance</a>
 - <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html">Enter by SSH (putty)</a>
-- Update Java to 1.8
+- <a href="https://serverfault.com/questions/664643/how-can-i-upgrade-to-java-1-8-on-an-amazon-linux-server#727254">Install Java JDK 1.8</a>
 - <a href="https://andrewelkins.com/2012/01/08/how-to-add-git-to-an-amazon-ami-ec2-instance/">Install git</a>
 - <a href="http://stackoverflow.com/questions/7532928/how-do-i-install-maven-with-yum">Install maven (without java 7)</a>
 
