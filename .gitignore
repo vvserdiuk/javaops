@@ -2,7 +2,9 @@
 out
 target
 *.iml
-log
+logs
+db
+
 
 
 

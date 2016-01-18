@@ -12,9 +12,6 @@
 
    9.2 Fix: default configuration and delimiter @:  https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-1.3-Release-Notes#maven-resources-filtering
 
-10. AWS. Deploy to AWS
-http://www.excelsior-usa.com/articles/tomcat-amazon-ec2-advanced.html
-
 11. Set active profile:
 
 1. Modify Tomcat config
@@ -25,3 +22,21 @@ http://stackoverflow.com/questions/32327522/spring-boot-yml-and-standalone-tomca
 
 2. Set in props
 https://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html#howto-set-active-spring-profiles
+
+
+
+AWS:
+10. AWS. Deploy to AWS
+<a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html">Setting Up with Amazon EC2</a>
+- Sign-Up
+- Launch instance
+- Generate and convert key
+- <a href="http://docs.aws.amazon.com/AmazonVPC/latest/GettingStartedGuide/getting-started-assign-eip.html">Assign an Elastic IP Address to Your Instance</a>
+- <a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/putty.html">Enter by SSH (putty)</a>
+- Update Java to 1.8
+- <a href="https://andrewelkins.com/2012/01/08/how-to-add-git-to-an-amazon-ami-ec2-instance/">Install git</a>
+- <a href="http://stackoverflow.com/questions/7532928/how-do-i-install-maven-with-yum">Install maven (without java 7)</a>
+
+http://www.excelsior-usa.com/articles/tomcat-amazon-ec2-advanced.html
+http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-aws-using-elastic-beanstalk/
+
