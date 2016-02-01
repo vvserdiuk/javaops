@@ -45,6 +45,8 @@ http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-
 Install nginx:
 `sudo su`
 `yum install -y nginx`
+`yum install mc`
+
 cat /etc/init.d/nginx
 `Ctrl+D (exit)`
 
@@ -53,3 +55,19 @@ cat /etc/init.d/nginx
 
 cat /etc/sysconfig/nginx
 cat /etc/nginx/nginx.conf
+
+<a href="http://askubuntu.com/questions/376199/sudo-su-vs-sudo-i-vs-sudo-bin-bash-when-does-it-matter-which-is-used">su/sudo</a>
+
+https://www.tollmanz.com/nginx-location-match-homepage/
+http://stackoverflow.com/questions/11954255/nginx-how-to-set-index-html-as-root-file
+
+`sudo service nginx reload`
+
+https://www.digitalocean.com/community/tutorials/how-to-optimize-nginx-configuration
+
+Open 80 port: http://stackoverflow.com/questions/5004159/opening-port-80-ec2-amazon-web-services
+
+https://en.wikipedia.org/wiki/Chmod
+
+http://stackoverflow.com/questions/6795350/nginx-403-forbidden-for-all-files
+namei -om /home/ec2-user/javaops/static/index.html
