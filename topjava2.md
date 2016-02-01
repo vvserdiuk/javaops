@@ -40,3 +40,16 @@ AWS:
 http://www.excelsior-usa.com/articles/tomcat-amazon-ec2-advanced.html
 http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-aws-using-elastic-beanstalk/
 
+11. Run at 80 port: http://stackoverflow.com/questions/33703965/spring-boot-running-app-on-port-80
+
+Install nginx:
+`sudo su`
+`yum install -y nginx`
+cat /etc/init.d/nginx
+`Ctrl+D (exit)`
+
+# config:      /etc/nginx/nginx.conf
+# config:      /etc/sysconfig/nginx
+
+cat /etc/sysconfig/nginx
+cat /etc/nginx/nginx.conf
