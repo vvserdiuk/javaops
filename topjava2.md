@@ -71,3 +71,7 @@ https://en.wikipedia.org/wiki/Chmod
 
 http://stackoverflow.com/questions/6795350/nginx-403-forbidden-for-all-files
 namei -om /home/ec2-user/javaops/static/index.html
+
+
+12. External properties
+http://www.javabeat.net/spring-boot-external-configurations/
