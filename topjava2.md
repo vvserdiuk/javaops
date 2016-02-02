@@ -75,3 +75,8 @@ namei -om /home/ec2-user/javaops/static/index.html
 
 12. External properties
 http://www.javabeat.net/spring-boot-external-configurations/
+
+13. H2
+http://stackoverflow.com/questions/221379/hibernate-hbm2ddl-auto-update-in-production
+http://stackoverflow.com/questions/18077327/hibernate-hbm2ddl-auto-possible-values-and-what-they-do-any-official-explanat
+http://stackoverflow.com/questions/20089470/hibernate-is-not-auto-creating-a-table-that-does-not-exist-in-the-db
