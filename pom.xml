@@ -95,8 +95,8 @@
             <id>aws</id>
             <properties>
                 <logback.level>WARN</logback.level>
-                <logback.dir>~/logs</logback.dir>
-                <db.dir>~/db</db.dir>
+                <logback.dir>/home/ec2-user/logs</logback.dir>
+                <db.dir>/home/ec2-user/db</db.dir>
             </properties>
             <build>
                 <plugins>
