@@ -81,6 +81,15 @@ http://stackoverflow.com/questions/221379/hibernate-hbm2ddl-auto-update-in-produ
 http://stackoverflow.com/questions/18077327/hibernate-hbm2ddl-auto-possible-values-and-what-they-do-any-official-explanat
 http://stackoverflow.com/questions/20089470/hibernate-is-not-auto-creating-a-table-that-does-not-exist-in-the-db
 
+- Preconditions in java
+<a href="http://www.sw-engineering-candies.com/blog-1/comparison-of-ways-to-check-preconditions-in-java">Comparison Preconditions in Java</a>
 
-OAuth2
+- OAuth2
 https://github.com/spring-cloud-samples/authserver
+
+- Configuration props
+http://blog.codeleak.pl/2014/09/using-configurationproperties-in-spring.html
+http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#configuration-metadata-annotation-processor
+
+Resource:
+- <a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">Spring Boot Reference Guide</a>
