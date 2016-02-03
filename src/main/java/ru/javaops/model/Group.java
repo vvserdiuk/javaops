@@ -9,7 +9,7 @@ import java.util.Set;
  * A Group.
  */
 @Entity
-@Table(name = "group")
+@Table(name = "groups")
 public class Group extends NamedEntity {
 
     @Column(name = "start_date")

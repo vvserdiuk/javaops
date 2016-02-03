@@ -13,8 +13,8 @@ import java.sql.SQLException;
 @Configuration
 public class AppConfig {
 
+    //    @Profile("dev")
     @Bean(initMethod = "start", destroyMethod = "stop")
-    @Profile("dev")
     public Server h2WebServer() throws SQLException {
         return Server.createWebServer("-web", "-webAllowOthers", "-webPort", "8082");
     }
