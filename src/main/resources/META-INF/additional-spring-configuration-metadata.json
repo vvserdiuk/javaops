@@ -1,0 +1,19 @@
+{
+  "properties": [
+    {
+      "name": "mail.async.corePoolSize",
+      "type": "java.lang.String",
+      "description": "Mail executor pool size."
+    },
+    {
+      "name": "mail.async.maxPoolSize",
+      "type": "java.lang.String",
+      "description": "Mail executor max pool size."
+    },
+    {
+      "name": "mail.async.queueCapacity",
+      "type": "java.lang.String",
+      "description": "Mail executor queueCapacity."
+    }
+  ]
+}

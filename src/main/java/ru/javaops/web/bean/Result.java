@@ -1,15 +1,11 @@
 package ru.javaops.web.bean;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
-import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.*;
 
 /**
  * GKislin
  * 05.02.2016
  */
-@JsonAutoDetect(fieldVisibility= ANY, getterVisibility= NONE, isGetterVisibility= NONE, setterVisibility= NONE)
 public class Result<T> {
     T result;
 

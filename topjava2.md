@@ -95,6 +95,8 @@ http://www.mkyong.com/spring/spring-propertysources-example/
 http://blog.jamesdbloom.com/UsingPropertySourceAndEnvironment.html
 http://stackoverflow.com/questions/13728000/value-not-resolved-when-using-propertysource-annotation-how-to-configure-prop
 
+additional-spring-configuration-metadata.json
+
 ## OAuth2
 https://github.com/spring-cloud-samples/authserver
 
@@ -120,6 +122,9 @@ http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
 ## JSON
 @JsonAutoDetect(fieldVisibility= ANY, getterVisibility= NONE, isGetterVisibility= NONE, setterVisibility= NONE)
 
+Globally:
+https://spring.io/blog/2014/12/02/latest-jackson-integration-improvements-in-spring#with-spring-boot
+http://stackoverflow.com/questions/29807879/jackson2objectmapperbuilder-enable-field-visibility-any
 
 ## Test
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html
