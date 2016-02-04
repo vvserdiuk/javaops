@@ -3,10 +3,12 @@ package ru.javaops.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import ru.javaops.model.GroupType;
@@ -21,11 +23,16 @@ import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 @Service
 public class MailService {
-
+    private final Logger LOG = LoggerFactory.getLogger(MailService.class);
     public static final String OK = "OK";
+
     @Autowired
     private SpringTemplateEngine templateEngine;
 
@@ -38,35 +45,57 @@ public class MailService {
     @Autowired
     private UserRepository userRepository;
 
-    private final Logger LOG = LoggerFactory.getLogger(MailService.class);
+    @Autowired
+    @Qualifier("mailExecutor")
+    private Executor mailExecutor;
 
-    public String sendGroup(String template, String projectName, GroupType type) {
+    public GroupResult sendGroup(String template, String projectName, GroupType type) {
+        checkNotNull(template, "Template must not be null");
         List<User> users = userRepository.findByProjectAndGroupType(projectName, type);
-        int failed = 0;
-        int success = 0;
-        StringBuilder failedCause = new StringBuilder();
-        for (User u : users) {
-            String result = sendEmail(template, u);
-            if (result.equals(OK)) {
-                success++;
-            } else {
-                failed++;
-                failedCause.append(result).append('\n');
+        CompletionService<String> completionService = new ExecutorCompletionService<>(mailExecutor);
+        List<Future<String>> resultList =
+                users.stream()
+                        .map(u -> completionService.submit(() -> sendEmail(template, u)))
+                        .collect(Collectors.toList());
+
+        final GroupResult groupResult = new GroupResult();
+        try {
+            while (!resultList.isEmpty()) {
+                Future<String> future = completionService.poll(10, TimeUnit.SECONDS);
+                if (future == null) {
+                    cancelAll(resultList);
+                    return groupResult.addFailCause("+++ Interrupted by timeout");
+                } else {
+                    if (!groupResult.accept(future)) {
+                        cancelAll(resultList);
+                        return groupResult.addFailCause("+++ Interrupted by faults number");
+                    }
+                    resultList.remove(future);
+                }
             }
-            if (failed > success && failed > 5) {
-                failedCause.append("\nInterrupted");
-            }
+        } catch (InterruptedException e) {
+            groupResult.addFailCause("+++ Interrupted");
         }
-        return String.format("Success: %d\nFailed: %d\nReasons:%s", success, failed, failedCause.toString());
+        return groupResult;
+    }
+
+    private void cancelAll(List<Future<String>> resultList) {
+        resultList.forEach(f -> f.cancel(true));
+    }
+
+    @Async("mailExecutor")
+    public Future<String> sendEmailAsync(String template, String email) {
+        return new AsyncResult<>(sendEmail(template, email));
     }
 
     public String sendEmail(String template, String email) {
-        Assert.notNull(template, "template must not be null");
-        Assert.notNull(email, "email  must not be null");
+        checkNotNull(template, "Template must not be null");
+        checkNotNull(email, "email  must not be null");
         return sendEmail(template, userRepository.findByEmail(email.toLowerCase()));
     }
 
     public String sendEmail(String template, User user) {
+        checkNotNull(user, "User must not be null");
         LOG.debug("Sending {} email to '{}'", template, user.getEmail());
         Context context = new Context(
                 Locale.forLanguageTag("ru"),
@@ -98,5 +127,43 @@ public class MailService {
         message.setSubject(subject);
         message.setText(content, isHtml);
         javaMailSender.send(mimeMessage);
+    }
+
+    public static class GroupResult {
+        int failed = 0;
+        int success = 0;
+        final StringBuilder failedCause = new StringBuilder();
+
+        @Override
+        public String toString() {
+            return String.format("Success: %d\nFailed: %d\nReasons:%s", success, failed, failedCause.toString());
+        }
+
+        public boolean isOk() {
+            return failedCause.length() == 0;
+        }
+
+        private GroupResult addFailCause(String cause) {
+            failedCause.append('\n').append(cause);
+            return this;
+        }
+
+        private boolean accept(Future<String> result) {
+            try {
+                if (OK.equals(result.get())) {
+                    success++;
+                } else {
+                    failed++;
+                    failedCause.append(result).append('\n');
+                }
+            } catch (InterruptedException e) {
+                failed++;
+                failedCause.append("\nTask interrupted");
+            } catch (ExecutionException e) {
+                failed++;
+                failedCause.append(e.getCause()).append('\n');
+            }
+            return failed < success || failed < 5;
+        }
     }
 }

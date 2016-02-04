@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.javaops.model.GroupType;
 import ru.javaops.service.MailService;
+import ru.javaops.web.bean.Result;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 /**
  * GKislin
@@ -27,12 +29,14 @@ public class MailController {
     }
 
     @RequestMapping(value = "/to-user", method = POST)
-    public String sendToUser(@Param("template") String template, @Param("email") String email) {
-        return mailService.sendEmail(template, email);
+    public Result<String> sendToUser(@Param("template") String template, @Param("email") String email) {
+        String result = mailService.sendEmail(template, email);
+        return new Result<>(result, result.equals(MailService.OK));
     }
 
     @RequestMapping(value = "/to-project", method = POST)
-    public String sendToGroup(@Param("template") String template, @Param("project") String project, @Param("groupType") String groupType) {
-        return mailService.sendGroup(template, project, GroupType.valueOf(groupType.toUpperCase()));
+    public Result<String> sendToGroup(@Param("template") String template, @Param("project") String project, @Param("groupType") String groupType) {
+        MailService.GroupResult groupResult = mailService.sendGroup(template, project, GroupType.valueOf(groupType.toUpperCase()));
+        return new Result<>(groupResult.toString(), groupResult.isOk());
     }
 }

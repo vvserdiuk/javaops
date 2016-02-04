@@ -73,23 +73,53 @@ http://stackoverflow.com/questions/6795350/nginx-403-forbidden-for-all-files
 namei -om /home/ec2-user/javaops/static/index.html
 
 
-12. External properties
+## External properties
 http://www.javabeat.net/spring-boot-external-configurations/
 
-13. H2
+## H2
 http://stackoverflow.com/questions/221379/hibernate-hbm2ddl-auto-update-in-production
 http://stackoverflow.com/questions/18077327/hibernate-hbm2ddl-auto-possible-values-and-what-they-do-any-official-explanat
 http://stackoverflow.com/questions/20089470/hibernate-is-not-auto-creating-a-table-that-does-not-exist-in-the-db
 
-- Preconditions in java
+## Preconditions in java
 <a href="http://www.sw-engineering-candies.com/blog-1/comparison-of-ways-to-check-preconditions-in-java">Comparison Preconditions in Java</a>
 
-- OAuth2
-https://github.com/spring-cloud-samples/authserver
-
-- Configuration props
+## Configuration props
+Add AppConfig
 http://blog.codeleak.pl/2014/09/using-configurationproperties-in-spring.html
 http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#configuration-metadata-annotation-processor
 
-Resource:
+## @PropertySource
+http://www.jayway.com/2014/02/16/spring-propertysource/
+http://www.mkyong.com/spring/spring-propertysources-example/
+http://blog.jamesdbloom.com/UsingPropertySourceAndEnvironment.html
+http://stackoverflow.com/questions/13728000/value-not-resolved-when-using-propertysource-annotation-how-to-configure-prop
+
+## OAuth2
+https://github.com/spring-cloud-samples/authserver
+
+## Resource:
 - <a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">Spring Boot Reference Guide</a>
+- <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/">Spring Framework Reference Documentation</a>
+
+## Execution and Scheduling
+<a href="http://stackoverflow.com/questions/4912228/when-should-i-use-a-completionservice-over-an-executorservice">CompletionService over an ExecutorService</a>
+
+Omitting many details:
+
+ExecutorService = incoming queue + worker threads
+CompletionService = incoming queue + worker threads + output queue
+
+http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#scheduling
+http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/#scheduling-enable-annotation-support
+
+<a href="https://habrahabr.ru/post/260953/">10 советов по использованию ExecutorService</a>
+
+<a href="Referencing beans across @Configuration classes">http://docs.spring.io/spring-javaconfig/docs/1.0.0.M4/reference/html/ch04s02.html</a>
+
+## JSON
+@JsonAutoDetect(fieldVisibility= ANY, getterVisibility= NONE, isGetterVisibility= NONE, setterVisibility= NONE)
+
+
+## Test
+https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html

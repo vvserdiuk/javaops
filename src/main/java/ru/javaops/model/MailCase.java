@@ -17,10 +17,11 @@ public class MailCase extends BaseEntity {
         this.user = user;
         this.subject = subject;
         this.result = result;
+        this.datetime = new Date();
     }
 
-    @Column(name = "date", columnDefinition = "TIMESTAMP DEFAULT NOW()", nullable = false)
-    private Date date;
+    @Column(name = "datetime", columnDefinition = "TIMESTAMP DEFAULT NOW()", nullable = false)
+    private Date datetime;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)

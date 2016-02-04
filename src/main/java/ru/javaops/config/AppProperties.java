@@ -18,6 +18,7 @@ public class AppProperties {
 
     /**
      * Root directory
+     * https://github.com/spring-projects/spring-boot/issues/5084
      */
     @NotNull
     private String rootDir;
