@@ -1,0 +1,22 @@
+app:
+   test-email: javawebinar@yandex.ru
+   cache-seconds: 5
+
+mail.async:
+   corePoolSize: 8
+   maxPoolSize: 8
+   queueCapacity: 1000
+
+spring:
+    profiles.active: dev
+    jpa.properties.hibernate.hbm2ddl.import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
+    thymeleaf.mode: HTML5
+    mvc.favicon.enabled: false
+
+    data.rest:
+      base-path: /api
+      default-page-size: 100
+
+logging.level:
+    ru.javaops: DEBUG
+    org.hibernate.engine.jdbc.spi.SqlStatementLogger: DEBUG

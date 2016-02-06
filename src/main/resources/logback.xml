@@ -9,7 +9,7 @@
     <jmxConfigurator/>
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
-        <file>@logback.dir@/javaops.log</file>
+        <file>logs/javaops.log</file>
 
         <encoder>
             <charset>UTF-8</charset>

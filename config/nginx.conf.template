@@ -15,8 +15,8 @@ http {
     sendfile            on;
     keepalive_timeout   65;
 
-    error_log   /home/ec2-user/logs/nginx.error.log debug;
-    access_log  /home/ec2-user/logs/nginx.access.log;
+    error_log   /home/ec2-user/javaops/logs/nginx.error.log;
+    access_log  /home/ec2-user/javaops/logs/nginx.access.log;
 
     server {
         listen       80;

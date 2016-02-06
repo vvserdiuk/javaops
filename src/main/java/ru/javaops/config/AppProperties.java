@@ -3,11 +3,6 @@ package ru.javaops.config;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import javax.validation.constraints.NotNull;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import static com.google.common.base.Preconditions.checkState;
 
 /**
  * GKislin
@@ -17,29 +12,16 @@ import static com.google.common.base.Preconditions.checkState;
 public class AppProperties {
 
     /**
-     * Root directory
-     * https://github.com/spring-projects/spring-boot/issues/5084
-     */
-    @NotNull
-    private String rootDir;
-
-    /**
      * Test email
      */
     @NotNull
     private String testEmail;
 
     /**
-     * Interval for update cached config
+     * Interval for update templates
      */
     @NotNull
     private int cacheSeconds;
-
-    public void setRootDir(String rootDir) {
-        this.rootDir = rootDir;
-        Path path = Paths.get(rootDir);
-        checkState(Files.isDirectory(path) && Files.isReadable(path), "%s is not readable directory", rootDir);
-    }
 
     public void setCacheSeconds(int cacheSeconds) {
         this.cacheSeconds = cacheSeconds;
@@ -55,13 +37,5 @@ public class AppProperties {
 
     public int getCacheSeconds() {
         return cacheSeconds;
-    }
-
-    public Path getRelatedPath(String path) {
-        return Paths.get(rootDir).resolve(path).normalize().toAbsolutePath();
-    }
-
-    public String getRootDir() {
-        return rootDir;
     }
 }

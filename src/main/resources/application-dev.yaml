@@ -1,0 +1,34 @@
+# H2 inMemory
+# remote client: tcp://localhost:9092/mem:javaops
+
+spring.jackson.serialization.indent_output: true
+
+spring.datasource:
+     url: jdbc:h2:mem:javaops
+     username: sa
+     password:
+
+spring.jpa:
+    hibernate.ddl-auto: create
+    show-sql: true
+    properties.hibernate.format_sql: true
+
+spring.mail:
+      host: smtp.gmail.com
+      port: 465
+      username: sendmail@dev-house.ru
+      password: sendmail%%
+      properties:
+          mail.smtp.ssl.enable: true
+          mail.debug: false
+
+
+logging.level:
+#   org.thymeleaf: DEBUG
+   org.springframework:
+      security: DEBUG
+      web: DEBUG
+      data: DEBUG
+      http.converter: DEBUG
+
+

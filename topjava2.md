@@ -1,4 +1,10 @@
-1. Spring Boot generate/run
+## Spring Boot generate/run
+-  <a href="http://blog.jetbrains.com/idea/2015/04/webinar-recording-spring-boot-and-intellij-idea-14-1">Spring Boot and Intellij IDEA 14</a>
+-  https://github.com/snicoll-demos/spring-boot-intellij-idea-webinar
+-  <a href="http://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/">Spring Boot Reference Guide</a>
+-  <a href="https://github.com/spring-projects/spring-boot">spring-projects/spring-boot</a>
+-  <a href="http://spring.io/guides/tutorials/bookmarks/">Building REST services with Spring</a>
+
 2. Profiles.
 3. Add H2. WebServer/TcpServer
 4. Model User/Role. Repository UserRepository.
@@ -25,8 +31,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-
 
 
 
-AWS:
-10. AWS. Deploy to AWS
+## AWS
 <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/get-set-up-for-amazon-ec2.html">Setting Up with Amazon EC2</a>
 - Sign-Up
 - Launch instance
@@ -40,9 +45,17 @@ AWS:
 http://www.excelsior-usa.com/articles/tomcat-amazon-ec2-advanced.html
 http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-aws-using-elastic-beanstalk/
 
-11. Run at 80 port: http://stackoverflow.com/questions/33703965/spring-boot-running-app-on-port-80
+-  <a href="http://mtdevuk.com/2015/02/10/how-to-deploy-a-spring-boot-application-to-amazon-aws-using-elastic-beanstalk">Deploy spring boot application to amazon elastic beanstalk</a>
+-  <a href="http://cloud.spring.io/spring-cloud-aws/spring-cloud-aws.html">Spring Cloud AWS</a>
 
-Install nginx:
+## Static resources
+http://www.baeldung.com/spring-mvc-static-resources
+
+### nginx/unix
+
+Run at 80 port: http://stackoverflow.com/questions/33703965/spring-boot-running-app-on-port-80
+
+
 `sudo su`
 `yum install -y nginx`
 `yum install mc`
@@ -72,6 +85,8 @@ https://en.wikipedia.org/wiki/Chmod
 http://stackoverflow.com/questions/6795350/nginx-403-forbidden-for-all-files
 namei -om /home/ec2-user/javaops/static/index.html
 
+<a href="https://kb.iu.edu/d/afnz">How do I run a Unix process in the background?</a>
+
 
 ## External properties
 http://www.javabeat.net/spring-boot-external-configurations/
@@ -99,10 +114,6 @@ additional-spring-configuration-metadata.json
 
 ## OAuth2
 https://github.com/spring-cloud-samples/authserver
-
-## Resource:
-- <a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">Spring Boot Reference Guide</a>
-- <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/">Spring Framework Reference Documentation</a>
 
 ## Execution and Scheduling
 <a href="http://stackoverflow.com/questions/4912228/when-should-i-use-a-completionservice-over-an-executorservice">CompletionService over an ExecutorService</a>
@@ -133,5 +144,23 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-tes
 http://blog.codeleak.pl/2014/04/how-to-spring-boot-and-thymeleaf-with-maven.html
 Alt+R: http://stackoverflow.com/questions/27919315/spring-boot-hot-deployment-for-templates-and-resources-under-intellij
 
+-  http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
+-  http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html
 
-<a href="https://kb.iu.edu/d/afnz">How do I run a Unix process in the background?</a>
+### Using multiple template resolvers
+http://blog.kaczmarzyk.net/2015/01/04/loading-view-templates-from-database-with-thymeleaf/
+http://stackoverflow.com/questions/26609226/using-multiple-template-resolvers-with-spring-3-2-and-thymeleaf-2-1-3-for-emails
+
+## Bootstrap
+http://itchief.ru/lessons/bootstrap-3/110-bootstrap-3-callouts
+
+
+## Serving Static Web Content with Spring Boot
+https://spring.io/blog/2013/12/19/serving-static-web-content-with-spring-boot
+
+--------------------------------
+
+## Resource:
+- <a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">Spring Boot Reference Guide</a>
+- <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/">Spring Framework Reference Documentation</a>
+
