@@ -94,7 +94,6 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <logback.level>INFO</logback.level>
                 <root.dir>C:/Java/javaops.ru</root.dir>
             </properties>
             <build>
@@ -112,7 +111,6 @@
         <profile>
             <id>aws</id>
             <properties>
-                <logback.level>WARN</logback.level>
                 <root.dir>/home/ec2-user</root.dir>
             </properties>
             <build>

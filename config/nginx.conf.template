@@ -22,9 +22,9 @@ http {
         listen       80;
         root  /home/ec2-user/javaops/;
 	
-        location = / {
-            try_files /resources/index.html =404;
-        }
+	location = / {
+	    try_files /resources/index.html =404;
+	}
 
         location = /favicon.ico {
             log_not_found off;
@@ -32,13 +32,13 @@ http {
 
         location = /index      { return 404; }
 
-        location /resources/ {
-            expires 1d;
+        location /resources/static/ {
+            expires 30d;
             access_log off;
         }
 
-        location /resources/static/ {
-            expires 30d;
+        location /resources/ {
+            expires 1d;
             access_log off;
         }
 

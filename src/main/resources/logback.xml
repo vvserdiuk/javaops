@@ -24,12 +24,12 @@
         </encoder>
     </appender>
 
-    <logger name="org.springframework.web" level="debug"/>
+    <logger name="org.springframework.web.servlet.resource.PathResourceResolver" level="trace"/>
     <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="debug"/>
     <logger name="org.springframework.security.web.csrf.CsrfFilter" level="debug"/>
-    <logger name="ru.javaops.platform" level="debug"/>
+    <logger name="ru.javaops.platform" level="info"/>
 
-    <root level="@logback.level@">
+    <root level="warn">
         <appender-ref ref="file"/>
         <appender-ref ref="console"/>
     </root>

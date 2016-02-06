@@ -61,7 +61,7 @@ cat /etc/nginx/nginx.conf
 https://www.tollmanz.com/nginx-location-match-homepage/
 http://stackoverflow.com/questions/11954255/nginx-how-to-set-index-html-as-root-file
 
-`sudo service nginx reload`
+`sudo service nginx reload/stop/start`
 
 https://www.digitalocean.com/community/tutorials/how-to-optimize-nginx-configuration
 
@@ -128,3 +128,7 @@ http://stackoverflow.com/questions/29807879/jackson2objectmapperbuilder-enable-f
 
 ## Test
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html
+
+## Thymeleaf
+http://blog.codeleak.pl/2014/04/how-to-spring-boot-and-thymeleaf-with-maven.html
+Alt+R: http://stackoverflow.com/questions/27919315/spring-boot-hot-deployment-for-templates-and-resources-under-intellij
