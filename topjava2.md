@@ -132,3 +132,6 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-tes
 ## Thymeleaf
 http://blog.codeleak.pl/2014/04/how-to-spring-boot-and-thymeleaf-with-maven.html
 Alt+R: http://stackoverflow.com/questions/27919315/spring-boot-hot-deployment-for-templates-and-resources-under-intellij
+
+
+<a href="https://kb.iu.edu/d/afnz">How do I run a Unix process in the background?</a>
