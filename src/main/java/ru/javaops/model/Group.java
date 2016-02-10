@@ -1,7 +1,6 @@
 package ru.javaops.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 
@@ -22,8 +21,7 @@ public class Group extends NamedEntity {
     private GroupType type;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @NotNull
-    @JoinColumn(name = "project_id", nullable = false)
+    @JoinColumn(name = "project_id")
     private Project project;
 
 

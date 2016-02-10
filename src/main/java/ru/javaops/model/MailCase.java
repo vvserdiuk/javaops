@@ -1,6 +1,7 @@
 package ru.javaops.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -21,15 +22,19 @@ public class MailCase extends BaseEntity {
     }
 
     @Column(name = "datetime", columnDefinition = "TIMESTAMP DEFAULT NOW()", nullable = false)
+    @NotNull
     private Date datetime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     @Column(name = "subject", nullable = false)
+    @NotNull
     private String subject;
 
     @Column(name = "result", nullable = false)
+    @NotNull
     private String result;
 }

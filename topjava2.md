@@ -138,10 +138,25 @@ http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
 
 Globally:
 https://spring.io/blog/2014/12/02/latest-jackson-integration-improvements-in-spring#with-spring-boot
+
+NOK
 http://stackoverflow.com/questions/29807879/jackson2objectmapperbuilder-enable-field-visibility-any
+
+OK
+http://stackoverflow.com/questions/28324352/how-to-customise-the-jackson-json-mapper-implicitly-used-by-spring-boot
+
+http://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.html#howto-customize-the-jackson-objectmapper
+
+https://github.com/spring-projects/spring-boot/issues/2116
+
+https://spring.io/blog/2014/12/02/latest-jackson-integration-improvements-in-spring#customizing-the-jackson-objectmapper
+
+org/springframework/spring-webmvc/4.2.4.RELEASE/spring-webmvc-4.2.4.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/
+AbstractMessageConverterMethodProcessor.java:213
 
 ## Test
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html
+http://stackoverflow.com/questions/13866533/how-to-create-a-completed-future-in-java
 
 ## Thymeleaf
 http://blog.codeleak.pl/2014/04/how-to-spring-boot-and-thymeleaf-with-maven.html
@@ -164,13 +179,15 @@ http://itchief.ru/lessons/bootstrap-3/110-bootstrap-3-callouts
 ## Serving Static Web Content with Spring Boot
 https://spring.io/blog/2013/12/19/serving-static-web-content-with-spring-boot
 
+## Exception handling
+http://stackoverflow.com/questions/28902374/spring-boot-rest-service-exception-handling
+404: http://stackoverflow.com/questions/28902374/spring-boot-rest-service-exception-handling
 --------------------------------
 
 ## Resource:
 - <a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">Spring Boot Reference Guide</a>
+- <a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties">application-properties</a>
 - <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/">Spring Framework Reference Documentation</a>
 - <a href="http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html">Tutorial: Using Thymeleaf</a>
 
-## Exception handling
-http://stackoverflow.com/questions/28902374/spring-boot-rest-service-exception-handling
-404: http://stackoverflow.com/questions/28902374/spring-boot-rest-service-exception-handling
+

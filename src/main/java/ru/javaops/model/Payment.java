@@ -19,8 +19,8 @@ public class Payment extends BaseEntity {
     private int sum;
 
     @Column(name = "currency")
-    private int currency;
+    private Currency currency;
 
     @Column(name = "comment")
-    private int comment;
+    private String comment;
 }

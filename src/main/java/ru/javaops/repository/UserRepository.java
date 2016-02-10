@@ -15,9 +15,11 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             " LEFT JOIN u.roles WHERE u.email=:email")
     User findByEmail(@Param("email") String email);
 
-    @Query(" SELECT u FROM User u " +
-            "  JOIN u.userGroups ug" +
-            "  JOIN ug.group g " +
-            " WHERE g.type=:groupType AND g.project.name=:projectName AND u.active=TRUE")
+    @Query(" SELECT DISTINCT(ug.user) FROM UserGroup ug " +
+            " WHERE ug.group.type=:groupType AND ug.group.project.name=:projectName AND ug.user.active=TRUE")
     List<User> findByProjectAndGroupType(@Param("projectName") String projectName, @Param("groupType") GroupType GroupType);
+
+    @Query(" SELECT DISTINCT(ug.user) FROM UserGroup ug " +
+            " WHERE ug.group.name=:groupName AND ug.user.active=TRUE")
+    List<User> findByGroupName(@Param("groupName") String groupName);
 }
