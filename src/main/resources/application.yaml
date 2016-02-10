@@ -1,6 +1,5 @@
 app:
    test-email: javawebinar@yandex.ru
-   cache-seconds: 5
 
 mail.async:
    corePoolSize: 8

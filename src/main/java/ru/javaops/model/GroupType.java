@@ -5,6 +5,6 @@ package ru.javaops.model;
  * 11.01.2016
  */
 public enum GroupType {
-    REGISTER,
-    PARTICIPANT
+    REGISTERS,
+    PARTICIPANTS
 }

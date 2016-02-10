@@ -38,6 +38,7 @@ public class MvcConfiguration extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("file:./resources/");
+        registry.addResourceHandler("/static/**").addResourceLocations("file:./resources/static/");
+        registry.addResourceHandler("/css/**").addResourceLocations("file:./resources/css/");
     }
 }

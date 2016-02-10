@@ -12,13 +12,16 @@
 6. Add Rest
 7. Add mail
 8. Switch to war: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#howto-create-a-deployable-war-file
-9. Customize path with Maven profiles.
-   9.1 Customize resources and add profiles ${}.
-       Mvn process resources (debug)
 
-   9.2 Fix: default configuration and delimiter @:  https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-1.3-Release-Notes#maven-resources-filtering
+11. Run with active profile:
+https://docs.spring.io/spring-boot/docs/current/reference/html/howto-properties-and-configuration.html#howto-set-active-spring-profiles
+ ~/.bashrc
+    export SPRING_PROFILES_ACTIVE=prod
+ . ~/.bashrc
 
-11. Set active profile:
+http://stackoverflow.com/questions/285015/linux-prevent-a-background-process-from-being-stopped-after-closing-ssh-client
+
+alias run='cd ~/javaops; nohup mvn spring-boot:run &'
 
 1. Modify Tomcat config
 Tomcat location:
@@ -146,6 +149,9 @@ Alt+R: http://stackoverflow.com/questions/27919315/spring-boot-hot-deployment-fo
 
 -  http://www.thymeleaf.org/doc/articles/standarddialect5minutes.html
 -  http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html
+- <a href="http://www.thymeleaf.org/doc/articles/petclinic.html">Фрагменты</a>
+- <a href="http://www.thymeleaf.org/doc/articles/layouts.html">Layouts</a>
+- <a href="http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-expressions">Conditional expressions</a>
 
 ### Using multiple template resolvers
 http://blog.kaczmarzyk.net/2015/01/04/loading-view-templates-from-database-with-thymeleaf/
@@ -163,4 +169,8 @@ https://spring.io/blog/2013/12/19/serving-static-web-content-with-spring-boot
 ## Resource:
 - <a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/">Spring Boot Reference Guide</a>
 - <a href="http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/">Spring Framework Reference Documentation</a>
+- <a href="http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html">Tutorial: Using Thymeleaf</a>
 
+## Exception handling
+http://stackoverflow.com/questions/28902374/spring-boot-rest-service-exception-handling
+404: http://stackoverflow.com/questions/28902374/spring-boot-rest-service-exception-handling

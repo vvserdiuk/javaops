@@ -15,9 +15,9 @@ import ru.javaops.repository.UserRepository;
  * Authenticate a user from the database.
  */
 @Service("userDetailsService")
-public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
+public class UserService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private final Logger log = LoggerFactory.getLogger(UserDetailsService.class);
+    private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -31,7 +31,7 @@ public class UserDetailsService implements org.springframework.security.core.use
         if (user == null) {
             throw new UsernameNotFoundException("User " + lowercaseLogin + " was not found in the database");
         }
-        if (!user.isEnabled()) {
+        if (!user.isActive()) {
             throw new DisabledException("User " + lowercaseLogin + " was not activated");
         }
         return new LoggedUser(user);

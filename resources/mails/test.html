@@ -1,25 +1,18 @@
-<html>
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <title>Тестовое письмо</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Тестовое письмо</title>
 </head>
 <body>
-
-<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
-<!--http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-expressions-->
-
-
-<p>Здравствуте!</p>
-
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!
+</p>
 <p>
     Тестовый mail
 </p>
-<p>
-    <span>С уважением,</span>
-    <br/>
-    <em>Григорий Кислин <a href="http://javawebinar.ru">Java Online Projects.</a></em>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
 </p>
 </body>
 </html>
-
-

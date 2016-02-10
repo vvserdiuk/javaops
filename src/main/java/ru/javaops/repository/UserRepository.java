@@ -18,6 +18,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(" SELECT u FROM User u " +
             "  JOIN u.userGroups ug" +
             "  JOIN ug.group g " +
-            " WHERE g.type=:groupType AND g.project.name=:projectName AND u.enabled=TRUE")
+            " WHERE g.type=:groupType AND g.project.name=:projectName AND u.active=TRUE")
     List<User> findByProjectAndGroupType(@Param("projectName") String projectName, @Param("groupType") GroupType GroupType);
 }

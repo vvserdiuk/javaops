@@ -1,0 +1,19 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<div th:fragment="header (user)">
+    <p th:text="|Здравствуй ${user.firstName}!|"></p>
+</div>
+
+<div th:fragment="footer (subscriptionUrl)">
+    <p>
+        <span>С лучшими пожеланиями,</span><br/>
+        <em>Григорий Кислин</em><br/>
+        <a href="http://javaops.ru">Java Online Projects</a>
+    </p>
+    <p style="font-size: small">
+        <a th:href="${subscriptionUrl}">отписаться от рассылки</a><br/>
+    </p>
+</div>
+</html>

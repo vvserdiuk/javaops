@@ -15,7 +15,7 @@ public class LoggedUser extends org.springframework.security.core.userdetails.Us
     private int id;
 
     public LoggedUser(User user) {
-        super(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, user.getRoles());
+        super(user.getEmail(), user.getPassword(), user.isActive(), true, true, true, user.getRoles());
         this.id = user.getId();
     }
 

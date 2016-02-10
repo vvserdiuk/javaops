@@ -1,0 +1,36 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments::headTag('Ошибка')">
+    <!-- ============================================================================ -->
+    <!-- This <head> is only used for static prototyping purposes (natural templates) -->
+    <!-- and is therefore entirely optional, as this markup fragment will be included  -->
+    <!-- from "fragments.html" at runtime.                                            -->
+    <!-- ============================================================================ -->
+    <meta charset="UTF-8"/>
+    <title>Ошибка</title>
+    <link rel="stylesheet" href="static/bootstrap-3.3.6/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="static/bootstrap-3.3.6/css/docs.min.css"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <link rel="shortcut icon" href="static/img/java_cup.ico"/>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:replace="fragments::header">
+    <div class="container">
+        <a href="/" class="navbar-brand">Java Online Projects</a>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="jumbotron">
+    <div class="container">
+        <br/>
+        <h4>Ошибка приложения:</h4>
+        <!--/*@thymesVar id="message" type="java.lang.String"*/-->
+        <h2 th:text="${message}">message</h2>
+    </div>
+</div>
+</body>
+</html>

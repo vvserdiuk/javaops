@@ -13,16 +13,6 @@ spring.jpa:
     show-sql: true
     properties.hibernate.format_sql: true
 
-spring.mail:
-      host: smtp.gmail.com
-      port: 465
-      username: sendmail@dev-house.ru
-      password: sendmail%%
-      properties:
-          mail.smtp.ssl.enable: true
-          mail.debug: false
-
-
 logging.level:
 #   org.thymeleaf: DEBUG
    org.springframework:
@@ -31,4 +21,7 @@ logging.level:
       data: DEBUG
       http.converter: DEBUG
 
-
+app:
+  activation-secret-salt: test
+  cache-seconds: 1
+  host-url: http://localhost:8080

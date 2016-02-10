@@ -1,9 +1,11 @@
 package ru.javaops.service;
 
+import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
@@ -11,6 +13,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import ru.javaops.config.AppProperties;
 import ru.javaops.model.GroupType;
 import ru.javaops.model.MailCase;
 import ru.javaops.model.User;
@@ -19,8 +22,9 @@ import ru.javaops.repository.UserRepository;
 import ru.javaops.util.MailUtil;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.HashMap;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.*;
@@ -30,8 +34,9 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 @Service
 public class MailService {
-    private final Logger LOG = LoggerFactory.getLogger(MailService.class);
+    public static final Locale LOCALE_RU = Locale.forLanguageTag("ru");
     public static final String OK = "OK";
+    private static final Logger LOG = LoggerFactory.getLogger(MailService.class);
 
     @Autowired
     private SpringTemplateEngine templateEngine;
@@ -44,6 +49,12 @@ public class MailService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SubscriptionService subscriptionService;
+
+    @Autowired
+    private AppProperties appProperties;
 
     @Autowired
     @Qualifier("mailExecutor")
@@ -97,33 +108,37 @@ public class MailService {
     public String sendEmail(String template, User user) {
         checkNotNull(user, "User must not be null");
         LOG.debug("Sending {} email to '{}'", template, user.getEmail());
-        Context context = new Context(
-                Locale.forLanguageTag("ru"),
-                new HashMap<String, Object>() {{
-                    put("user", user);
-                }});
+        String activationKey = subscriptionService.generateActivationKey(user.getEmail());
+        String subscriptionUrl = subscriptionService.getSubscriptionUrl(user.getEmail(), activationKey, false);
+        Context context = new Context(LOCALE_RU,
+                ImmutableMap.of("user", user, "subscriptionUrl", subscriptionUrl));
         String content = templateEngine.process(template, context);
         final String subject = MailUtil.getTitle(content);
         String result;
         try {
-            sendEmail(user.getEmail(), subject, content, false, true);
+            sendEmail(user.getEmail(), user.getFirstName(), subject, content, false, true, subscriptionUrl);
             result = OK;
-        } catch (MessagingException e) {
-            result = e.toString();
+        } catch (MessagingException | MailException e) {
+            result = e.getMessage();
             LOG.error("Sending to {} failed: \n{}", user.getEmail(), result);
         }
         mailCaseRepository.save(new MailCase(user, subject, result));
         return result;
     }
 
-    public void sendEmail(String to, String subject, String content, boolean isMultipart, boolean isHtml) throws MessagingException {
-        LOG.debug("Send email [multipart '{}' and html '{}'] to '{}' with subject '{}' and content={}",
-                isMultipart, isHtml, to, subject, content);
+    public void sendEmail(String toEmail, String toName, String subject, String content, boolean isMultipart, boolean isHtml, String subscriptionUrl) throws MessagingException {
+        LOG.debug("Send email to '{} <{}>' with subject '{}'", toName, toEmail, subject);
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        if (subscriptionUrl != null) {
+            mimeMessage.setHeader("List-Unsubscribe", '<' + subscriptionUrl + '>');
+        }
         MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, "UTF-8");
-        message.setTo(to);
-        message.setFrom("javawebinar@yandex.ru");
+        try {
+            message.setTo(new InternetAddress(toEmail, toName, "UTF-8"));
+            message.setFrom("admin@javaops.ru", "Java Online Projects");
+        } catch (UnsupportedEncodingException e) { // dummy
+        }
         message.setSubject(subject);
         message.setText(content, isHtml);
         javaMailSender.send(mimeMessage);

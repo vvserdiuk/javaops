@@ -1,10 +1,10 @@
 package ru.javaops.model;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.WordUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -19,8 +19,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "users")
-public class User extends NamedEntity {
-    private static final PasswordEncoder ENCODER = new BCryptPasswordEncoder();
+public class User extends BaseEntity {
 
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -71,11 +70,14 @@ public class User extends NamedEntity {
     @Size(max = 100)
     private String vk;
 
-    @Column(name = "enabled", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
-    private boolean enabled = true;
+    @Column(name = "active", nullable = false, columnDefinition = "BOOLEAN DEFAULT TRUE")
+    private boolean active = true;
 
-    @Column(name = "registered", columnDefinition = "TIMESTAMP DEFAULT NOW()")
-    private Date registered = new Date();
+    @Column(name = "registered_date", columnDefinition = "TIMESTAMP DEFAULT NOW()")
+    private Date registeredDate = new Date();
+
+    @Column(name = "activated_date")
+    private Date activatedDate;
 
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"))
@@ -89,24 +91,12 @@ public class User extends NamedEntity {
     public User() {
     }
 
-    public User(User u) {
-        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.isEnabled(), u.getRoles());
-    }
-
-    public User(Integer id, String name, String email, String password, int caloriesPerDay, Role role, Role... roles) {
-        this(id, name, email, password, true, EnumSet.of(role, roles));
-    }
-
-    public User(Integer id, String name, String email, String password, boolean enabled, Set<Role> roles) {
-        super(id, name);
-        this.email = email;
-        this.password = password;
-        this.enabled = enabled;
-        this.roles = roles;
-    }
-
     public String getEmail() {
         return email;
+    }
+
+    public String getFirstName() {
+        return firstName == null ? "" : StringUtils.capitalize(firstName);
     }
 
     public void setEmail(String email) {
@@ -114,23 +104,19 @@ public class User extends NamedEntity {
     }
 
     public void setPassword(String password) {
-        this.password = ENCODER.encode(password);
+        this.password = password;
     }
 
-    public Date getRegistered() {
-        return registered;
+    public void setActive(boolean activated) {
+        this.active = activated;
     }
 
-    public void setRegistered(Date registered) {
-        this.registered = registered;
+    public void setActivatedDate(Date activatedDate) {
+        this.activatedDate = activatedDate;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
+    public boolean isActive() {
+        return active;
     }
 
     public Set<Role> getRoles() {
@@ -154,8 +140,9 @@ public class User extends NamedEntity {
         return "User (" +
                 "id=" + getId() +
                 ", email=" + email +
-                ", name=" + name +
-                ", enabled=" + enabled +
+                ", firstName=" + firstName +
+                ", lastName=" + lastName +
+                ", active=" + active +
                 ", roles=" + roles +
                 ')';
     }
