@@ -139,9 +139,6 @@ http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/
 Globally:
 https://spring.io/blog/2014/12/02/latest-jackson-integration-improvements-in-spring#with-spring-boot
 
-NOK
-http://stackoverflow.com/questions/29807879/jackson2objectmapperbuilder-enable-field-visibility-any
-
 OK
 http://stackoverflow.com/questions/28324352/how-to-customise-the-jackson-json-mapper-implicitly-used-by-spring-boot
 
@@ -150,6 +147,8 @@ http://docs.spring.io/spring-boot/docs/current/reference/html/howto-spring-mvc.h
 https://github.com/spring-projects/spring-boot/issues/2116
 
 https://spring.io/blog/2014/12/02/latest-jackson-integration-improvements-in-spring#customizing-the-jackson-objectmapper
+
+http://stackoverflow.com/questions/29807879/jackson2objectmapperbuilder-enable-field-visibility-any#35326628
 
 org/springframework/spring-webmvc/4.2.4.RELEASE/spring-webmvc-4.2.4.RELEASE-sources.jar!/org/springframework/web/servlet/mvc/method/annotation/
 AbstractMessageConverterMethodProcessor.java:213
