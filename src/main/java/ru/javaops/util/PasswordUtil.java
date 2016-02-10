@@ -19,14 +19,14 @@ public class PasswordUtil {
         return PASSWORD_ENCODER;
     }
 
-    public static String encode(String newPassword) {
-        if (StringUtils.isEmpty(newPassword)) {
+    public static String encode(String rawPassword) {
+        if (StringUtils.isEmpty(rawPassword)) {
             return null;
         }
-        if (isEncoded(newPassword)) {
-            return newPassword;
+        if (isEncoded(rawPassword)) {
+            return rawPassword;
         }
-        return PASSWORD_ENCODER.encode(newPassword);
+        return PASSWORD_ENCODER.encode(rawPassword);
     }
 
     public static boolean isMatch(String rawPassword, String password) {
