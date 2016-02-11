@@ -30,12 +30,14 @@ public class RootController {
         if (subscriptionService.isActivationKeyMatch(email, key)) {
             User u = userRepository.findByEmail(email);
             if (u != null) {
-                u.setActive(activate);
-                u.setActivatedDate(new Date());
-                userRepository.save(u);
-                return new ModelAndView("activation",
-                        ImmutableMap.of("activate", activate,
-                                "subscriptionUrl", subscriptionService.getSubscriptionUrl(email, key, !activate)));
+                if (u.isActive() != activate) {
+                    u.setActive(activate);
+                    u.setActivatedDate(new Date());
+                    userRepository.save(u);
+                    return new ModelAndView("activation",
+                            ImmutableMap.of("activate", activate,
+                                    "subscriptionUrl", subscriptionService.getSubscriptionUrl(email, key, !activate)));
+                }
             }
         }
         throw new IllegalArgumentException();
