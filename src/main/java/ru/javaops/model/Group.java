@@ -1,7 +1,7 @@
 package ru.javaops.model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -12,12 +12,13 @@ import java.util.Set;
 public class Group extends NamedEntity {
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date")
-    private Date endDate;
+    private LocalDate endDate;
 
     @Column(name = "type")
+    @Enumerated(EnumType.STRING)
     private GroupType type;
 
     @ManyToOne(fetch = FetchType.EAGER)

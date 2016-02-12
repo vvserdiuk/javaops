@@ -2,6 +2,8 @@ package ru.javaops.util;
 
 import org.junit.Test;
 
+import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -9,6 +11,11 @@ import static org.junit.Assert.assertTrue;
  * 11.02.2016
  */
 public class PasswordUtilTest {
+
+    @Test
+    public void test() throws Exception {
+        System.out.println(substringBefore(capitalize("григорий Кислин"), " "));
+    }
 
     @Test
     public void testPassword() throws Exception {

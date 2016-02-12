@@ -25,3 +25,11 @@ app:
   activation-secret-salt: test
   cache-seconds: 1
   host-url: http://localhost:8080
+
+spring:
+  mail.host: smtp.yandex.ru
+  mail.port: 465
+  mail.username: mail@yandex.ru
+  mail.password: password
+  mail.properties.mail.smtp.ssl.enable :  true
+  mail.properties.mail.debug: false

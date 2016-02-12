@@ -1,9 +1,7 @@
 package ru.javaops.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import java.util.Date;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * GKislin
@@ -13,11 +11,12 @@ import java.util.Date;
 @Table(name = "payment")
 public class Payment extends BaseEntity {
     @Column(name = "date")
-    private Date date;
+    private LocalDate date;
 
     @Column(name = "sum")
     private int sum;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "currency")
     private Currency currency;
 

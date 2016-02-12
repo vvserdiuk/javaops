@@ -1,7 +1,5 @@
 package ru.javaops.model;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.text.WordUtils;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -13,6 +11,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
+
+import static org.apache.commons.lang3.StringUtils.capitalize;
+import static org.apache.commons.lang3.StringUtils.substringBefore;
 
 /**
  * User: gkislin
@@ -26,15 +27,10 @@ public class User extends BaseEntity {
     @NotEmpty
     private String email;
 
-    @Size(min = 2, max = 50)
-    @Column(name = "first_name", length = 50)
-    private String firstName;
+    @Column(name = "full_name", length = 50)
+    private String fullName;
 
-    @Size(min = 2, max = 50)
-    @Column(name = "last_name", length = 50)
-    private String lastName;
-
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     @Length(min = 5)
     private String password;
 
@@ -52,7 +48,7 @@ public class User extends BaseEntity {
     private String infoSource;
 
     @Size(max = 500)
-    @Column(name = "about_me", length = 500)
+    @Column(name = "about_me", length = 5000)
     private String aboutMe;
 
     @Size(max = 100)
@@ -96,7 +92,7 @@ public class User extends BaseEntity {
     }
 
     public String getFirstName() {
-        return firstName == null ? "" : StringUtils.capitalize(firstName);
+        return fullName == null ? "" : (substringBefore(capitalize(fullName), " "));
     }
 
     public void setEmail(String email) {
@@ -140,8 +136,7 @@ public class User extends BaseEntity {
         return "User (" +
                 "id=" + getId() +
                 ", email=" + email +
-                ", firstName=" + firstName +
-                ", lastName=" + lastName +
+                ", fullName=" + fullName +
                 ", active=" + active +
                 ", roles=" + roles +
                 ')';

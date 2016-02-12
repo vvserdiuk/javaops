@@ -18,9 +18,11 @@ public class UserGroup extends BaseEntity {
     @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "type")
     private ParticipationType type;
 
+    @Enumerated(EnumType.STRING)
     @Column(name="channel")
     private Channel channel;
 

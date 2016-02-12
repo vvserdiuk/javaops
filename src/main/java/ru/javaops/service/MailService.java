@@ -1,6 +1,7 @@
 package ru.javaops.service;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring4.SpringTemplateEngine;
+import ru.javaops.config.AppProperties;
 import ru.javaops.model.GroupType;
 import ru.javaops.model.MailCase;
 import ru.javaops.model.User;
@@ -25,11 +27,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.*;
-import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -55,6 +54,9 @@ public class MailService {
     private SubscriptionService subscriptionService;
 
     @Autowired
+    private AppProperties appProperties;
+
+    @Autowired
     @Qualifier("mailExecutor")
     private Executor mailExecutor;
 
@@ -69,40 +71,56 @@ public class MailService {
     public GroupResult sendToUserList(String template, Collection<User> users) {
         checkNotNull(template, "template must not be null");
         checkNotNull(users, "users must not be null");
+        users.add(getTestUser());
         CompletionService<String> completionService = new ExecutorCompletionService<>(mailExecutor);
-        List<Future<String>> resultList =
-                users.stream()
-                        .map(u -> completionService.submit(() -> sendToUser(template, u)))
-                        .collect(Collectors.toList());
+        Map<Future<String>, String> resultMap = new HashMap<>();
+        users.forEach(
+                u -> {
+                    Future<String> future = completionService.submit(() -> sendToUser(template, u));
+                    resultMap.put(future, u.getEmail());
+                }
+        );
 
         final GroupResultBuilder groupResultBuilder = new GroupResultBuilder();
         try {
-            while (!resultList.isEmpty()) {
+            while (!resultMap.isEmpty()) {
                 Future<String> future = completionService.poll(10, TimeUnit.SECONDS);
                 if (future == null) {
-                    cancelAll(resultList);
+                    cancelAll(resultMap);
                     return groupResultBuilder.buildWithFailure("+++ Interrupted by timeout");
                 } else {
-                    if (!groupResultBuilder.accept(future)) {
-                        cancelAll(resultList);
+                    String email = resultMap.remove(future);
+                    if (!groupResultBuilder.accept(email, future)) {
+                        cancelAll(resultMap);
                         return groupResultBuilder.buildWithFailure("+++ Interrupted by faults number");
                     }
-                    resultList.remove(future);
                 }
             }
         } catch (InterruptedException e) {
             return groupResultBuilder.buildWithFailure("+++ Interrupted");
         }
-        return groupResultBuilder.build();
+        return groupResultBuilder.buildOK();
     }
 
-    private void cancelAll(List<Future<String>> resultList) {
-        resultList.forEach(f -> f.cancel(true));
+    private User getTestUser() {
+        return userRepository.findByEmail(appProperties.getTestEmail());
+    }
+
+    private void cancelAll(Map<Future<String>, String> resultMap) {
+        LOG.warn("Cancel all unsent tasks");
+        resultMap.forEach((feature, email) -> {
+            LOG.warn("Sending to " + email + " failed");
+            feature.cancel(true);
+        });
     }
 
     @Async("mailExecutor")
     public Future<String> sendToUserAsync(String template, String email) {
         return new AsyncResult<>(sendToUser(template, email));
+    }
+
+    public String sendTest(String template) {
+        return sendToUser(template, getTestUser());
     }
 
     public String sendToUser(String template, String email) {
@@ -151,77 +169,72 @@ public class MailService {
     }
 
     public static class GroupResultBuilder {
-        int success = 0;
-        int failed = 0;
-        final StringBuilder failedCauses = new StringBuilder();
+        private List<String> success = new ArrayList<>();
+        private List<MailResult> failed = new ArrayList<>();
+        private String failedCause = null;
 
-        private GroupResult build() {
-            return new GroupResult(success, failed, failedCauses.length() == 0 ? null : failedCauses.toString());
+        private GroupResult buildOK() {
+            return new GroupResult(success, failed, null);
         }
 
         private GroupResult buildWithFailure(String cause) {
-            failedCauses.append('\n').append(cause);
-            return build();
+            return new GroupResult(success, failed, cause);
         }
 
-        boolean accept(Future<String> result) {
+        boolean accept(String email, Future<String> future) {
             try {
-                if (OK.equals(result.get())) {
-                    success++;
+                final String result = future.get();
+                if (OK.equals(result)) {
+                    success.add(email);
                 } else {
-                    failed++;
-                    failedCauses.append(result).append('\n');
+                    failed.add(new MailResult(email, result));
                 }
             } catch (InterruptedException e) {
-                failed++;
-                failedCauses.append("\nTask interrupted");
+                failedCause = "Task interrupted";
+                LOG.error("Sending to " + email + " interrupted");
             } catch (ExecutionException e) {
-                failed++;
-                failedCauses.append(e.getCause()).append('\n');
+                failed.add(new MailResult(email, e.toString()));
+                LOG.error("Sending to " + email + " failed with " + e.getMessage());
             }
-            return failed < success || failed < 5;
+            return (failed.size() < success.size() || failed.size() < 3) && failedCause == null;
         }
     }
 
-    public static class GroupResult {
-        final int failed;
-        final int success;
-        final String failedCauses;
+    public static class MailResult {
+        final String email;
+        final String result;
 
-        public GroupResult(@JsonProperty("success") int success, @JsonProperty("failed") int failed, @JsonProperty("failedCauses") String failedCauses) {
-            this.success = success;
-            this.failed = failed;
-            this.failedCauses = failedCauses;
+        public MailResult(@JsonProperty("email") String email, @JsonProperty("result") String result) {
+            this.email = email;
+            this.result = result;
         }
 
         @Override
         public String toString() {
-            return String.format("Success: %d\nFailed: %d\nReasons:%s", success, failed, failedCauses);
+            return '(' + email + ',' + result + ')';
+        }
+    }
+
+    public static class GroupResult {
+        final List<String> success;
+        final List<MailResult> failed;
+        final String failedCause;
+
+        public GroupResult(@JsonProperty("success") List<String> success, @JsonProperty("failed") List<MailResult> failed, @JsonProperty("failedCause") String failedCause) {
+            this.success = ImmutableList.copyOf(success);
+            this.failed = ImmutableList.copyOf(failed);
+            this.failedCause = failedCause;
+        }
+
+        @Override
+        public String toString() {
+            return "Success: " + success.toString() + '\n' +
+                    "Failed: " + failed.toString() + '\n' +
+                    (failedCause == null ? "" : "Failed cause" + failedCause);
         }
 
         public boolean isOk() {
-            return failedCauses == null;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            GroupResult that = (GroupResult) o;
-
-            if (failed != that.failed) return false;
-            if (success != that.success) return false;
-            return failedCauses != null ? failedCauses.equals(that.failedCauses) : that.failedCauses == null;
-
-        }
-
-        @Override
-        public int hashCode() {
-            int result = failed;
-            result = 31 * result + success;
-            result = 31 * result + (failedCauses != null ? failedCauses.hashCode() : 0);
-            return result;
+            return failedCause == null;
         }
     }
 }

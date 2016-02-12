@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.model.GroupType;
 import ru.javaops.model.User;
 
-import java.util.List;
+import java.util.Set;
 
 @Transactional(readOnly = true)
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -17,9 +17,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(" SELECT DISTINCT(ug.user) FROM UserGroup ug " +
             " WHERE ug.group.type=:groupType AND ug.group.project.name=:projectName AND ug.user.active=TRUE")
-    List<User> findByProjectAndGroupType(@Param("projectName") String projectName, @Param("groupType") GroupType GroupType);
+    Set<User> findByProjectAndGroupType(@Param("projectName") String projectName, @Param("groupType") GroupType GroupType);
 
     @Query(" SELECT DISTINCT(ug.user) FROM UserGroup ug " +
             " WHERE ug.group.name=:groupName AND ug.user.active=TRUE")
-    List<User> findByGroupName(@Param("groupName") String groupName);
+    Set<User> findByGroupName(@Param("groupName") String groupName);
 }

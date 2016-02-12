@@ -1,6 +1,7 @@
 package ru.javaops.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.collect.ImmutableList;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,10 +25,11 @@ public class JacksonTest {
 
     @Test
     public void testGetResult() throws Exception {
-        MailService.GroupResult res = new MailService.GroupResult(2,4, "fail results");
+        MailService.GroupResult res = new MailService.GroupResult(ImmutableList.of("a@ya.ru", "b@ya.ru"),
+                ImmutableList.of(new MailService.MailResult("c@ya.ru", "fail_c"), new MailService.MailResult("d@ya.ru", "fail_d")), null);
         System.out.println(res);
         String str = objectMapper.writeValueAsString(res);
         System.out.println(str);
-        Assert.assertEquals(res, objectMapper.readerFor(MailService.GroupResult.class).readValue(str));
+        Assert.assertEquals(res.toString(), objectMapper.readerFor(MailService.GroupResult.class).readValue(str).toString());
     }
 }

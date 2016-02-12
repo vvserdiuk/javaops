@@ -29,6 +29,12 @@ public class MailController {
         return new ResponseEntity<>(result, result.equals(MailService.OK) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @RequestMapping(value = "/test", method = POST)
+    public ResponseEntity<String> sendToUser(@Param("template") String template) {
+        String result = mailService.sendTest(template);
+        return new ResponseEntity<>(result, result.equals(MailService.OK) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @RequestMapping(value = "/to-project", method = POST)
     public ResponseEntity<MailService.GroupResult> sendToProjectByGroupType(@Param("template") String template, @Param("project") String project, @Param("groupType") String groupType) {
         MailService.GroupResult groupResult = mailService.sendToProjectByGroupType(template, project, GroupType.valueOf(groupType.toUpperCase()));
