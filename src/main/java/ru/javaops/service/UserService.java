@@ -11,6 +11,8 @@ import ru.javaops.LoggedUser;
 import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 
+import java.util.Collection;
+
 /**
  * Authenticate a user from the database.
  */
@@ -35,5 +37,16 @@ public class UserService implements org.springframework.security.core.userdetail
             throw new DisabledException("User " + lowercaseLogin + " was not activated");
         }
         return new LoggedUser(user);
+    }
+
+
+    @Transactional
+    public void deleteByEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        userRepository.delete(user);
+    }
+
+    public Collection<User> getGroup(String groupName) {
+        return userRepository.findByGroupName(groupName);
     }
 }
