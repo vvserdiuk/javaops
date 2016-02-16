@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.NotEmpty;
  * 16.02.2016
  */
 public class UserTo {
-    @NotEmpty
+    @NotEmpty(message = "Поле email не может быть пустым")
     String email;
 
     String nameSurname;

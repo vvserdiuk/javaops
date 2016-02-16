@@ -2,6 +2,7 @@ package ru.javaops.util;
 
 import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 
 import java.io.BufferedReader;
@@ -18,8 +19,8 @@ import java.util.regex.Pattern;
 public class Util {
     private static Pattern MAIL_TITLE = Pattern.compile("<title>(.+)</title>", Pattern.MULTILINE);
 
-    public static <T> boolean acceptNotNull(T value, Consumer<T> setter) {
-        if (value != null) {
+    public static <T> boolean assignNotEmpty(T value, Consumer<T> setter) {
+        if (!StringUtils.isEmpty(value)) {
             setter.accept(value);
             return true;
         }
@@ -36,7 +37,7 @@ public class Util {
 
     public static String getErrorMessage(BindingResult result) {
         StringBuilder sb = new StringBuilder();
-        result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br/>"));
+        result.getFieldErrors().forEach(fe -> sb.append(fe.getDefaultMessage()).append("<br/>"));
         return sb.toString();
     }
 

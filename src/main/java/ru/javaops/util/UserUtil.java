@@ -3,7 +3,7 @@ package ru.javaops.util;
 import ru.javaops.model.User;
 import ru.javaops.to.UserTo;
 
-import static ru.javaops.util.Util.acceptNotNull;
+import static ru.javaops.util.Util.assignNotEmpty;
 
 /**
  * GKislin
@@ -15,9 +15,9 @@ public class UserUtil {
     }
 
     public static void updateFromTo(User user, UserTo userTo) {
-        acceptNotNull(userTo.getNameSurname(), user::setFullName);
-        acceptNotNull(userTo.getLocation(), user::setLocation);
-        acceptNotNull(userTo.getInfoSource(), user::setInfoSource);
+        assignNotEmpty(userTo.getNameSurname(), user::setFullName);
+        assignNotEmpty(userTo.getLocation(), user::setLocation);
+        assignNotEmpty(userTo.getInfoSource(), user::setInfoSource);
         user.setActive(true);
     }
 }

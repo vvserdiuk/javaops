@@ -40,7 +40,7 @@ public class User extends BaseEntity {
     @Pattern(regexp = "[_A-Za-z0-9-\\+\\.]*@gmail\\.[A-Za-z]{2,3}")
     private String gmail;
 
-    @Size(min = 3, max = 50)
+    @Size(max = 50)
     private String location;
 
     @Size(max = 100)

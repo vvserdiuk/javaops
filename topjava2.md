@@ -186,6 +186,9 @@ Alt+R: http://stackoverflow.com/questions/27919315/spring-boot-hot-deployment-fo
 text mode:
 http://forum.thymeleaf.org/Thymeleaf-and-plain-text-e-mail-or-other-non-HTML-XML-templates-td4026349.html
 
+Unescaped Text
+http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#unescaped-text
+
 ### Using multiple template resolvers
 http://blog.kaczmarzyk.net/2015/01/04/loading-view-templates-from-database-with-thymeleaf/
 http://stackoverflow.com/questions/26609226/using-multiple-template-resolvers-with-spring-3-2-and-thymeleaf-2-1-3-for-emails
