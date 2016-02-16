@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title th:text="|Registration ${user.email}, template: ${template}, participation: ${participation}|"></title>
+    <title th:text="|Registration ${user.email} /${template} /${participation} /${result}|"></title>
 </head>
 <!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
 <p th:text="|${user.toString()} was registered|">
