@@ -3,11 +3,12 @@
 Коннект к базе (только 1 коннект возможен):
 
 - профиль prod
-приложение не работает jdbc:h2:file:~/db/javaops
-приложение работает:   jdbc:h2:tcp://localhost:9092/~/db/javaops
+
+   - приложение не работает jdbc:h2:file:~/db/javaops
+   - приложение работает:   jdbc:h2:tcp://localhost:9092/~/db/javaops
 
 - профиль dev
-jdbc:h2:tcp://localhost:9092/mem:javaops
+   - jdbc:h2:tcp://localhost:9092/mem:javaops
 
 -----------------------------------------------------
 ## Spring Boot generate/run
