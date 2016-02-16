@@ -26,13 +26,13 @@ public class MailController {
     @RequestMapping(value = "/to-user", method = POST)
     public ResponseEntity<String> sendToUser(@Param("template") String template, @Param("email") String email) {
         String result = mailService.sendToUser(template, email);
-        return new ResponseEntity<>(result, result.equals(MailService.OK) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(result, MailService.isOk(result) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @RequestMapping(value = "/test", method = POST)
     public ResponseEntity<String> sendToUser(@Param("template") String template) {
         String result = mailService.sendTest(template);
-        return new ResponseEntity<>(result, result.equals(MailService.OK) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(result, MailService.isOk(result) ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @RequestMapping(value = "/to-project", method = POST)

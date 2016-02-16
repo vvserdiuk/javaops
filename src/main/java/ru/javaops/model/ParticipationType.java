@@ -7,5 +7,7 @@ package ru.javaops.model;
 public enum ParticipationType {
     STANDARD,
     EXTENDED,
-    REPEAT
+    REPEAT,
+    REGISTERED,
+    DUPLICATED
 }

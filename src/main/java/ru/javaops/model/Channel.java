@@ -6,5 +6,6 @@ package ru.javaops.model;
  */
 public enum Channel {
     JavaRush,
-    JavaWebinar
+    JavaWebinar,
+    BecomeJavaSenior
 }

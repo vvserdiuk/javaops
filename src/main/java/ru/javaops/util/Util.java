@@ -1,0 +1,47 @@
+package ru.javaops.util;
+
+import org.springframework.core.io.Resource;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.validation.BindingResult;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.function.Consumer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * GKislin
+ * 15.02.2016
+ */
+public class Util {
+    private static Pattern MAIL_TITLE = Pattern.compile("<title>(.+)</title>", Pattern.MULTILINE);
+
+    public static <T> boolean acceptNotNull(T value, Consumer<T> setter) {
+        if (value != null) {
+            setter.accept(value);
+            return true;
+        }
+        return false;
+    }
+
+    public static String toString(Resource resource) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(resource.getInputStream()))) {
+            return FileCopyUtils.copyToString(br);
+        } catch (IOException e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
+
+    public static String getErrorMessage(BindingResult result) {
+        StringBuilder sb = new StringBuilder();
+        result.getFieldErrors().forEach(fe -> sb.append(fe.getField()).append(" ").append(fe.getDefaultMessage()).append("<br/>"));
+        return sb.toString();
+    }
+
+    public static String getTitle(String template) {
+        Matcher m = MAIL_TITLE.matcher(template);
+        return m.find() ? m.group(1) : null;
+    }
+}

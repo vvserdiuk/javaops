@@ -1,0 +1,14 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title th:text="|Registration ${user.email}, template: ${template}, participation: ${participation}|"></title>
+</head>
+<!--/*@thymesVar id="user" type="ru.javaops.model.User"*/-->
+<p th:text="|${user.toString()} was registered|">
+</p>
+<p th:text="|Participation: ${participation}|">
+</p>
+<p th:text="|Template ${template} sending by email with result: ${result}|">
+</p>
+</html>

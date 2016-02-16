@@ -16,6 +16,10 @@ spring:
       base-path: /api
       default-page-size: 100
 
+spring.cache:
+    cache-names: group
+    guava.spec: maximumSize=150,expireAfterAccess=600s
+
 logging.level:
     ru.javaops: DEBUG
     org.hibernate.engine.jdbc.spi.SqlStatementLogger: DEBUG

@@ -26,7 +26,7 @@ public class Group extends NamedEntity {
     private Project project;
 
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", fetch = FetchType.LAZY)
     private Set<UserGroup> groupUsers;
 
     public Set<UserGroup> getGroupUsers() {

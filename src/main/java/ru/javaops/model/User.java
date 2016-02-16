@@ -87,6 +87,13 @@ public class User extends BaseEntity {
     public User() {
     }
 
+    public User(String email, String nameSurname, String location, String infoSource) {
+        this.email = email;
+        this.fullName = nameSurname;
+        this.location = location;
+        this.infoSource = infoSource;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -131,14 +138,38 @@ public class User extends BaseEntity {
         return userGroups;
     }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public void setInfoSource(String infoSource) {
+        this.infoSource = infoSource;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getInfoSource() {
+        return infoSource;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
     @Override
     public String toString() {
         return "User (" +
                 "id=" + getId() +
                 ", email=" + email +
-                ", fullName=" + fullName +
-                ", active=" + active +
-                ", roles=" + roles +
+                ", fullName='" + fullName + '\'' +
+                ", location=" + location +
+                ", infoSource=" + infoSource +
                 ')';
     }
 }

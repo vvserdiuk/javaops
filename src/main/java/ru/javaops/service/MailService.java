@@ -19,9 +19,10 @@ import ru.javaops.config.AppProperties;
 import ru.javaops.model.GroupType;
 import ru.javaops.model.MailCase;
 import ru.javaops.model.User;
+import ru.javaops.model.UserGroup;
 import ru.javaops.repository.MailCaseRepository;
 import ru.javaops.repository.UserRepository;
-import ru.javaops.util.MailUtil;
+import ru.javaops.util.Util;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
@@ -34,8 +35,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 @Service
 public class MailService {
-    public static final Locale LOCALE_RU = Locale.forLanguageTag("ru");
-    public static final String OK = "OK";
+    private static final Locale LOCALE_RU = Locale.forLanguageTag("ru");
+    private static final String OK = "OK";
     private static final Logger LOG = LoggerFactory.getLogger(MailService.class);
 
     @Autowired
@@ -59,6 +60,10 @@ public class MailService {
     @Autowired
     @Qualifier("mailExecutor")
     private Executor mailExecutor;
+
+    public static boolean isOk(String result) {
+        return OK.equals(result);
+    }
 
     public GroupResult sendToGroup(String template, String groupName) {
         return sendToUserList(template, userRepository.findByGroupName(groupName));
@@ -131,33 +136,36 @@ public class MailService {
 
     public String sendToUser(String template, User user) {
         checkNotNull(user, "User must not be null");
-        LOG.debug("Sending {} email to '{}'", template, user.getEmail());
         String activationKey = subscriptionService.generateActivationKey(user.getEmail());
         String subscriptionUrl = subscriptionService.getSubscriptionUrl(user.getEmail(), activationKey, false);
-        Context context = new Context(LOCALE_RU,
-                ImmutableMap.of("user", user, "subscriptionUrl", subscriptionUrl));
-        String content = templateEngine.process(template, context);
-        final String subject = MailUtil.getTitle(content);
+        return sendToUserWithParams(template, user, ImmutableMap.of("user", user, "subscriptionUrl", subscriptionUrl));
+    }
+
+    public String sendToUserWithParams(String template, User user, final Map<String, ?> params) {
+        checkNotNull(user, "User must not be null");
+        LOG.debug("Sending {} email to '{}'", template, user.getEmail());
+        String content = getContent(template, params);
+        final String subject = Util.getTitle(content);
         String result;
         try {
-            sendToUser(user.getEmail(), user.getFirstName(), subject, content, false, true, subscriptionUrl);
+            send(user.getEmail(), user.getFirstName(), subject, content, true, (String) params.get("subscriptionUrl"));
             result = OK;
         } catch (MessagingException | MailException e) {
             result = e.getMessage();
             LOG.error("Sending to {} failed: \n{}", user.getEmail(), result);
         }
-        mailCaseRepository.save(new MailCase(user, subject, result));
+        mailCaseRepository.save(new MailCase(user, template, result));
         return result;
     }
 
-    public void sendToUser(String toEmail, String toName, String subject, String content, boolean isMultipart, boolean isHtml, String subscriptionUrl) throws MessagingException {
+    public void send(String toEmail, String toName, String subject, String content, boolean isHtml, String subscriptionUrl) throws MessagingException {
         LOG.debug("Send email to '{} <{}>' with subject '{}'", toName, toEmail, subject);
 
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         if (subscriptionUrl != null) {
             mimeMessage.setHeader("List-Unsubscribe", '<' + subscriptionUrl + '>');
         }
-        MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, "UTF-8");
+        MimeMessageHelper message = new MimeMessageHelper(mimeMessage, "UTF-8");
         try {
             message.setTo(new InternetAddress(toEmail, toName, "UTF-8"));
             message.setFrom("admin@javaops.ru", "Java Online Projects");
@@ -166,6 +174,14 @@ public class MailService {
         message.setSubject(subject);
         message.setText(content, isHtml);
         javaMailSender.send(mimeMessage);
+    }
+
+    public String sendRegistration(String template, UserGroup userGroup, String confirmEmail) throws MessagingException {
+        User user = userGroup.getUser();
+        String result = sendToUser(template, user);
+        String content = getContent("confirm", ImmutableMap.of("user", user, "template", template, "result", result, "participation", userGroup.getType()));
+        send(confirmEmail, null, Util.getTitle(content), content, true, null);
+        return result;
     }
 
     public static class GroupResultBuilder {
@@ -184,7 +200,7 @@ public class MailService {
         boolean accept(String email, Future<String> future) {
             try {
                 final String result = future.get();
-                if (OK.equals(result)) {
+                if (isOk(result)) {
                     success.add(email);
                 } else {
                     failed.add(new MailResult(email, result));
@@ -198,6 +214,11 @@ public class MailService {
             }
             return (failed.size() < success.size() || failed.size() < 3) && failedCause == null;
         }
+    }
+
+    String getContent(String template, final Map<String, ?> params) {
+        Context context = new Context(LOCALE_RU, params);
+        return templateEngine.process(template, context);
     }
 
     public static class MailResult {

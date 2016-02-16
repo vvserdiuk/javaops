@@ -17,6 +17,6 @@ public class MarkdownUtil {
     };
 
     String toHtml(Resource resource) {
-        return PROCESSOR.get().markdownToHtml(IoUtil.toString(resource));
+        return PROCESSOR.get().markdownToHtml(Util.toString(resource));
     }
 }

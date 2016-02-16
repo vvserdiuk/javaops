@@ -14,9 +14,9 @@ public class MailCase extends BaseEntity {
     protected MailCase() {
     }
 
-    public MailCase(User user, String subject, String result) {
+    public MailCase(User user, String template, String result) {
         this.user = user;
-        this.subject = subject;
+        this.template = template;
         this.result = result;
         this.datetime = new Date();
     }
@@ -30,9 +30,9 @@ public class MailCase extends BaseEntity {
     @NotNull
     private User user;
 
-    @Column(name = "subject", nullable = false)
+    @Column(name = "template", nullable = false)
     @NotNull
-    private String subject;
+    private String template;
 
     @Column(name = "result", nullable = false)
     @NotNull

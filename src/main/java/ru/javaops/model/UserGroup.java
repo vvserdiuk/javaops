@@ -10,6 +10,16 @@ import javax.persistence.*;
 @Table(name = "user_group", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "group_id"}, name = "user_group_unique_idx")})
 public class UserGroup extends BaseEntity {
 
+    public UserGroup() {
+    }
+
+    public UserGroup(User user, Group group, ParticipationType type, Channel channel) {
+        this.user = user;
+        this.group = group;
+        this.type = type;
+        this.channel = channel;
+    }
+
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -23,9 +33,21 @@ public class UserGroup extends BaseEntity {
     private ParticipationType type;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="channel")
+    @Column(name = "channel")
     private Channel channel;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Payment payment;
+
+    public User getUser() {
+        return user;
+    }
+
+    public ParticipationType getType() {
+        return type;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
 }

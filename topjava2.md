@@ -179,6 +179,9 @@ Alt+R: http://stackoverflow.com/questions/27919315/spring-boot-hot-deployment-fo
 - <a href="http://www.thymeleaf.org/doc/articles/layouts.html">Layouts</a>
 - <a href="http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#conditional-expressions">Conditional expressions</a>
 
+text mode:
+http://forum.thymeleaf.org/Thymeleaf-and-plain-text-e-mail-or-other-non-HTML-XML-templates-td4026349.html
+
 ### Using multiple template resolvers
 http://blog.kaczmarzyk.net/2015/01/04/loading-view-templates-from-database-with-thymeleaf/
 http://stackoverflow.com/questions/26609226/using-multiple-template-resolvers-with-spring-3-2-and-thymeleaf-2-1-3-for-emails
@@ -202,3 +205,6 @@ http://stackoverflow.com/questions/28902374/spring-boot-rest-service-exception-h
 - <a href="http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html">Tutorial: Using Thymeleaf</a>
 
 
+## Cache
+Guava
+https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html#boot-features-caching-provider-guava
