@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import ru.javaops.model.Channel;
 import ru.javaops.model.User;
 import ru.javaops.model.UserGroup;
+import ru.javaops.service.GroupService;
 import ru.javaops.service.MailService;
 import ru.javaops.service.SubscriptionService;
 import ru.javaops.service.UserService;
@@ -39,6 +40,9 @@ public class SubscriptionController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GroupService groupService;
 
     @RequestMapping(value = "/activate", method = RequestMethod.GET)
     public ModelAndView activate(@RequestParam("email") String email, @RequestParam("activate") boolean activate, @RequestParam("key") String key) {
@@ -74,7 +78,7 @@ public class SubscriptionController {
             group = template;
         }
         LOG.info(userTo + " registration at " + group);
-        UserGroup userGroup = userService.addToGroup(userTo, group, channel);
+        UserGroup userGroup = groupService.addToGroup(userTo, group, channel);
         String mailResult = mailService.sendRegistration(template, userGroup, confirmEmail);
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
     }

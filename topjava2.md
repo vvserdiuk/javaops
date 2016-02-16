@@ -212,3 +212,7 @@ http://stackoverflow.com/questions/28902374/spring-boot-rest-service-exception-h
 ## Cache
 Guava
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-caching.html#boot-features-caching-provider-guava
+
+Inner call:
+http://stackoverflow.com/questions/12115996/spring-cache-cacheable-method-ignored-when-called-from-within-the-same-class
+https://spring.io/blog/2012/05/23/transactions-caching-and-aop-understanding-proxy-usage-in-spring
