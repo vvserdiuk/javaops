@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.LoggedUser;
 import ru.javaops.model.*;
-import ru.javaops.repository.GroupRepository;
 import ru.javaops.repository.UserGroupRepository;
 import ru.javaops.repository.UserRepository;
 import ru.javaops.to.UserTo;
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     private UserRepository userRepository;
 
     @Autowired
-    private GroupRepository groupRepository;
+    private GroupService groupService;
 
     @Autowired
     private UserGroupRepository userGroupRepository;
@@ -64,12 +63,12 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     @Transactional
     public UserGroup addToGroup(UserTo userTo, String groupName, Channel channel) {
         User user = userRepository.findByEmail(userTo.getEmail());
-        Group group = groupRepository.findByName(groupName);
+        Group group = groupService.findByName(groupName);
         ParticipationType participationType;
 
         if (user != null) {
             UserUtil.updateFromTo(user, userTo);
-            Set<Group> groups = groupRepository.findByUser(user);
+            Set<Group> groups = groupService.findByUserId(user.getId());
             if (groups.stream().filter(g -> g.equals(group)).findFirst().isPresent()) {
                 return new UserGroup(user, group, ParticipationType.DUPLICATED, channel);
             }

@@ -170,7 +170,10 @@ AbstractMessageConverterMethodProcessor.java:213
 https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html
 http://stackoverflow.com/questions/13866533/how-to-create-a-completed-future-in-java
 
-## Thymeleaf
+## Templates, Thymeleaf
+http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-spring-mvc-template-engines
+JSP limitation: http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/
+
 http://blog.codeleak.pl/2014/04/how-to-spring-boot-and-thymeleaf-with-maven.html
 Alt+R: http://stackoverflow.com/questions/27919315/spring-boot-hot-deployment-for-templates-and-resources-under-intellij
 

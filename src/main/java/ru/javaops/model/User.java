@@ -88,8 +88,13 @@ public class User extends BaseEntity {
     }
 
     public User(String email, String nameSurname, String location, String infoSource) {
+        this(null, email, nameSurname, location, infoSource);
+    }
+
+    public User(Integer id, String email, String fullName, String location, String infoSource) {
+        super(id);
         this.email = email;
-        this.fullName = nameSurname;
+        this.fullName = fullName;
         this.location = location;
         this.infoSource = infoSource;
     }

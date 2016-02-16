@@ -4,21 +4,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import ru.javaops.JavaOPsApplication;
+import ru.javaops.ApplicationAbstractTest;
 
 /**
  * GKislin
  * 05.02.2016
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(JavaOPsApplication.class)
-@WebAppConfiguration
-public class JacksonTest {
+public class JacksonTest extends ApplicationAbstractTest {
 
     @Autowired
     private ObjectMapper objectMapper;

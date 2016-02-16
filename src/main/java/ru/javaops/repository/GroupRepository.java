@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javaops.model.Group;
-import ru.javaops.model.User;
 
 import java.util.Set;
 
@@ -13,8 +12,8 @@ import java.util.Set;
 public interface GroupRepository extends JpaRepository<Group, Integer> {
 
     @Query("SELECT DISTINCT(ug.group) FROM UserGroup ug " +
-            " WHERE ug.user = :user")
-    Set<Group> findByUser(@Param("user") User user);
+            " WHERE ug.user.id = :userId")
+    Set<Group> findByUser(@Param("userId") int userId);
 
 
     @Query("SELECT g FROM Group g WHERE g.name = :name")
