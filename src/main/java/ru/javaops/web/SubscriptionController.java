@@ -60,17 +60,20 @@ public class SubscriptionController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ModelAndView activate(@RequestParam("template") String template,
-                                 @RequestParam("group") String group,
+                                 @RequestParam(value = "group", required = false) String group,
                                  @RequestParam("confirm_email") String confirmEmail,
+                                 @RequestParam("channel") Channel channel,
                                  @RequestParam("success_url") String successUrl,
                                  @RequestParam("fail_url") String failUrl,
-                                 @RequestParam("channel") Channel channel,
                                  @Valid UserTo userTo, BindingResult result) throws MessagingException {
 
         if (result.hasErrors()) {
             throw new ValidationException(Util.getErrorMessage(result));
         }
-        LOG.info(userTo + " registration");
+        if (group == null) {
+            group = template;
+        }
+        LOG.info(userTo + " registration at " + group);
         UserGroup userGroup = userService.addToGroup(userTo, group, channel);
         String mailResult = mailService.sendRegistration(template, userGroup, confirmEmail);
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);

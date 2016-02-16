@@ -9,6 +9,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import ru.javaops.JavaOPsApplication;
 import ru.javaops.model.User;
+import ru.javaops.util.Util;
 
 /**
  * GKislin
@@ -24,7 +25,11 @@ public class MailServiceTest {
 
     @Test
     public void testGetContent() throws Exception {
-        System.out.println(mailService.getContent("confirm", ImmutableMap.of("user",
-                new User("email@ya.ru", "Name Surname", "location", "info source"), "template", "topjava_register", "result", "OK")));
+        String content = mailService.getContent("masterjava_register", ImmutableMap.of("user",
+                new User("email@ya.ru", "Name Surname", "location", "info source"), "template", "topjava_register", "result", "OK"));
+        System.out.println("\n+++++");
+        System.out.println(Util.getTitle(content));
+        System.out.println("+++++");
+        System.out.println(content);
     }
 }

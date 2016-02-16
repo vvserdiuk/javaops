@@ -1,0 +1,24 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Регистрация на проект 'Практика Java. Разработка Web приложения'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<p>
+Спасибо за регистрацию на проекте <a href="http://javawebinar.ru/basejava">Практика Java. Разработка Web приложения</a>!<br/>
+Старт проекта будет по мере набора группы.<br/>
+Буду делать рассылку и держать в курсе.
+</p>
+<h4>До начала занятий необходимо установить ПО и подготовится по <a href='https://github.com/JavaOPs/webapp'>вступительному занятию</a>.</h4>
+<p>
+Добавляйся <b><a href="https://vk.com/javawebinar">в группу VK</a></b><br/>
+До встречи на проекте!<br/>
+</p>
+<p><a href='http://javawebinar.ru/#faq'>Ответы на вопросы.</a></p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>

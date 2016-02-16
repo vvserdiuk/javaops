@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import ru.javaops.model.Group;
 import ru.javaops.repository.GroupRepository;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * GKislin
  * 15.02.2016
@@ -17,6 +19,8 @@ public class GroupService {
 
     @Cacheable("group")
     public Group getByName(String name) {
-        return groupRepository.findByName(name);
+        Group group = groupRepository.findByName(name);
+        checkNotNull(group, "Не найдена группа '" + name + '\'');
+        return group;
     }
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Регистрация на проект 'Веб-сервисы. SOA-based (Microservices) архитектура'</title>
+</head>
+<p th:replace="mailFragments::header(${user})">
+    Здравствуй firstName!<br/>
+</p>
+<p>
+Спасибо за регистрацию на проекте <a href="http://javawebinar.ru/masterjava">Веб-сервисы. SOA-based (Microservices) архитектура</a>!<br/>
+Я собираюсь его переработать, старт будет по готовности и по мере набора группы.<br/>
+Буду делать рассылку и держать в курсе.
+Добавляйся <b><a href="https://vk.com/javawebinar">в группу VK</a></b><br/>
+До встречи на проекте!<br/>
+</p>
+<p><a href='http://javawebinar.ru/#faq'>Ответы на вопросы.</a></p>
+<p th:include="mailFragments::footer(${subscriptionUrl})">
+</p>
+</html>
