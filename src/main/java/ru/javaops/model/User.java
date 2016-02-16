@@ -37,7 +37,7 @@ public class User extends BaseEntity {
     @Email
     @Size(max = 100)
     @Column(length = 100, unique = true)
-    @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@gmail.com")
+    @Pattern(regexp = "[_A-Za-z0-9-\\+\\.]*@gmail\\.[A-Za-z]{2,3}")
     private String gmail;
 
     @Size(min = 3, max = 50)

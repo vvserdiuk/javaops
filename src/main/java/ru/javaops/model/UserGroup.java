@@ -13,7 +13,7 @@ public class UserGroup extends BaseEntity {
     public UserGroup() {
     }
 
-    public UserGroup(User user, Group group, ParticipationType type, Channel channel) {
+    public UserGroup(User user, Group group, ParticipationType type, String channel) {
         this.user = user;
         this.group = group;
         this.type = type;
@@ -32,9 +32,8 @@ public class UserGroup extends BaseEntity {
     @Column(name = "type")
     private ParticipationType type;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "channel")
-    private Channel channel;
+    private String channel;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Payment payment;

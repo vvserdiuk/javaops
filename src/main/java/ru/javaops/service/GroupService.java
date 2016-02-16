@@ -3,7 +3,10 @@ package ru.javaops.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.javaops.model.*;
+import ru.javaops.model.Group;
+import ru.javaops.model.ParticipationType;
+import ru.javaops.model.User;
+import ru.javaops.model.UserGroup;
 import ru.javaops.repository.GroupRepository;
 import ru.javaops.repository.UserGroupRepository;
 import ru.javaops.repository.UserRepository;
@@ -40,7 +43,7 @@ public class GroupService {
     }
 
     @Transactional
-    public UserGroup addToGroup(UserTo userTo, String groupName, Channel channel) {
+    public UserGroup addToGroup(UserTo userTo, String groupName, String channel) {
         User user = userRepository.findByEmail(userTo.getEmail());
         Group group = findByName(groupName);
         ParticipationType participationType;

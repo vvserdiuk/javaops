@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import ru.javaops.model.Channel;
 import ru.javaops.model.User;
 import ru.javaops.model.UserGroup;
 import ru.javaops.service.GroupService;
@@ -66,7 +65,7 @@ public class SubscriptionController {
     public ModelAndView activate(@RequestParam("template") String template,
                                  @RequestParam(value = "group", required = false) String group,
                                  @RequestParam("confirm_email") String confirmEmail,
-                                 @RequestParam("channel") Channel channel,
+                                 @RequestParam("channel") String channel,
                                  @RequestParam("success_url") String successUrl,
                                  @RequestParam("fail_url") String failUrl,
                                  @Valid UserTo userTo, BindingResult result) throws MessagingException {
