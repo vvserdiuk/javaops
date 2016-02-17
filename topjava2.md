@@ -219,3 +219,12 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-cac
 Inner call:
 http://stackoverflow.com/questions/12115996/spring-cache-cacheable-method-ignored-when-called-from-within-the-same-class
 https://spring.io/blog/2012/05/23/transactions-caching-and-aop-understanding-proxy-usage-in-spring
+
+## VK
+https://habrahabr.ru/post/265563/
+https://api.vk.com/method/users.get?domain=grigory.kislin&v=5.37&access_token=..
+https://geektimes.ru/post/125155/
+
+## Cascade
+http://stackoverflow.com/questions/5787551/should-i-let-jpa-or-the-database-cascade-deletions
+http://stackoverflow.com/questions/2856460/hibernate-doesnt-generate-cascade

@@ -41,8 +41,13 @@ public class UserServiceImpl implements UserService, org.springframework.securit
 
     @Transactional
     public void deleteByEmail(String email) {
+        log.debug("Delete user " + email);
         User user = userRepository.findByEmail(email);
-        userRepository.delete(user);
+        if (user != null) {
+            userRepository.delete(user);
+        } else {
+            log.warn("User " + email + " is not found");
+        }
     }
 
     public Collection<User> getGroup(String groupName) {

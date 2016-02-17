@@ -25,6 +25,7 @@ app:
   activation-secret-salt: test
   cache-seconds: 1
   host-url: http://localhost:8080
+  vk-token: token
 
 spring:
   mail.host: smtp.yandex.ru
@@ -33,3 +34,4 @@ spring:
   mail.password: password
   mail.properties.mail.smtp.ssl.enable :  true
   mail.properties.mail.debug: false
+

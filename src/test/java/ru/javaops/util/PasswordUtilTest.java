@@ -19,7 +19,7 @@ public class PasswordUtilTest {
 
     @Test
     public void testPassword() throws Exception {
-        String rawPassword = "qwerty123456";
+        String rawPassword = "password";
         String encoded = PasswordUtil.encode(rawPassword);
         System.out.println(encoded);
         assertTrue(PasswordUtil.isEncoded(encoded));
