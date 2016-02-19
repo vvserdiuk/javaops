@@ -44,6 +44,10 @@ public class UserGroup extends BaseEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Payment payment;
 
+    public String getChannel() {
+        return channel;
+    }
+
     public User getUser() {
         return user;
     }

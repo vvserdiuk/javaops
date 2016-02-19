@@ -177,9 +177,9 @@ public class MailService {
     }
 
     public String sendRegistration(String template, UserGroup userGroup, String confirmEmail) throws MessagingException {
-        User user = userGroup.getUser();
-        String result = sendToUser(template, user);
-        String content = getContent("confirm", ImmutableMap.of("user", user, "template", template, "result", result, "participation", userGroup.getType()));
+        String result = sendToUser(template, userGroup.getUser());
+        String content = getContent("confirm",
+                ImmutableMap.of("template", template, "result", result, "userGroup", userGroup));
         send(confirmEmail, null, Util.getTitle(content), content, true, null);
         return result;
     }
