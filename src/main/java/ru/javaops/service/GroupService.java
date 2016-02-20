@@ -84,10 +84,13 @@ public class GroupService {
         return userGroupRepository.save(userGroup);
     }
 
-    public UserGroup move(User u, Group sourceGroup, Group targetGroup) {
+    public UserGroup moveOrCreate(User u, Group sourceGroup, Group targetGroup) {
         UserGroup ug = userGroupRepository.findByUserIdAndGroupId(u.getId(), sourceGroup.getId());
-        checkNotNull(ug, "User %s missed in group %s", u.getEmail(), sourceGroup.getName());
-        ug.setGroup(targetGroup);
+        if (ug == null) {
+            ug = new UserGroup(u, targetGroup, ParticipationType.REGISTERED, "email");
+        } else {
+            ug.setGroup(targetGroup);
+        }
         return ug;
     }
 
@@ -95,7 +98,7 @@ public class GroupService {
     public UserGroup pay(String email, String projectName, Payment payment) {
         User u = userService.findExistedByEmail(email);
         ProjectGroups projectGroups = getProjectGroups(projectName);
-        UserGroup ug = move(u, projectGroups.registeredGroup, projectGroups.currentGroup);
+        UserGroup ug = moveOrCreate(u, projectGroups.registeredGroup, projectGroups.currentGroup);
         paymentRepository.save(payment);
         ug.setPayment(payment);
         userGroupRepository.save(ug);
