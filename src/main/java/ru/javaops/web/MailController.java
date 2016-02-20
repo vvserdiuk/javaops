@@ -41,10 +41,9 @@ public class MailController {
         return new ResponseEntity<>(groupResult, groupResult.isOk() ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @RequestMapping(value = "/to-group", method = POST)
+    @RequestMapping(value = "/to-groups", method = POST)
     public ResponseEntity<MailService.GroupResult> sendToGroup(@Param("template") String template, @Param("group") String group) {
-//        MailService.GroupResult groupResult = new MailService.GroupResult(1,2,"123");
-        MailService.GroupResult groupResult = mailService.sendToGroup(template, group);
+        MailService.GroupResult groupResult = mailService.sendToGroups(template, group);
         return new ResponseEntity<>(groupResult, groupResult.isOk() ? HttpStatus.OK : HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

@@ -27,6 +27,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.util.*;
 import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -62,8 +63,13 @@ public class MailService {
         return OK.equals(result);
     }
 
-    public GroupResult sendToGroup(String template, String groupName) {
-        return sendToUserList(template, userRepository.findByGroupName(groupName));
+    public GroupResult sendToGroups(String template, String groupNames) {
+        Set<User> users = Arrays.stream(groupNames.split(","))
+                .map(String::trim)
+                .flatMap(groupName -> userRepository.findByGroupName(groupName).stream())
+                .collect(Collectors.toSet());
+        return null;
+//        return sendToUserList(template, users);
     }
 
     public GroupResult sendToProjectByGroupType(String template, String projectName, GroupType type) {

@@ -189,6 +189,9 @@ http://forum.thymeleaf.org/Thymeleaf-and-plain-text-e-mail-or-other-non-HTML-XML
 Unescaped Text
 http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#unescaped-text
 
+Inlining
+http://www.thymeleaf.org/doc/tutorials/2.1/usingthymeleaf.html#inlining
+
 ### Using multiple template resolvers
 http://blog.kaczmarzyk.net/2015/01/04/loading-view-templates-from-database-with-thymeleaf/
 http://stackoverflow.com/questions/26609226/using-multiple-template-resolvers-with-spring-3-2-and-thymeleaf-2-1-3-for-emails
