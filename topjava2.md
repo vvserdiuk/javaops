@@ -232,3 +232,14 @@ https://geektimes.ru/post/125155/
 http://stackoverflow.com/questions/5787551/should-i-let-jpa-or-the-database-cascade-deletions
 http://stackoverflow.com/questions/2856460/hibernate-doesnt-generate-cascade
 https://dzone.com/articles/spring-caching-abstraction-and
+
+## Logging
+https://docs.spring.io/spring-boot/docs/current/reference/html/howto-logging.html
+https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html#boot-features-logging-file-output
+
+## Error handling
+http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#boot-features-error-handling
+
+
+
+org.springframework.web.servlet.DispatcherServlet.getHandler #1115

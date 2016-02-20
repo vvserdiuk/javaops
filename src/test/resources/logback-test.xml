@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration scan="true">
-    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <charset>utf-8</charset>
-            <Pattern>[%p] %c - %m%n</Pattern>
-        </encoder>
-    </appender>
-    <logger name="ru.javaops.platform" level="DEBUG"/>
-    <root level="WARN">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="debug"/>
+    <logger name="ru.javaops" level="DEBUG"/>
+
+    <root level="warn">
         <appender-ref ref="CONSOLE"/>
     </root>
 </configuration>

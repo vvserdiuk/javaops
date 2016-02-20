@@ -20,6 +20,8 @@ spring.cache:
     cache-names: group, groups
     guava.spec: maximumSize=100, expireAfterAccess=300s
 
-logging.level:
-    ru.javaops: DEBUG
-    org.hibernate.engine.jdbc.spi.SqlStatementLogger: DEBUG
+logging:
+    file: javaops.log
+    level:
+       ru.javaops: DEBUG
+       org.hibernate.engine.jdbc.spi.SqlStatementLogger: DEBUG

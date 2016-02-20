@@ -1,6 +1,4 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments::headTag('Ошибка')">
     <!-- ============================================================================ -->
     <!-- This <head> is only used for static prototyping purposes (natural templates) -->
@@ -25,11 +23,12 @@
     </div>
 </div>
 <div class="jumbotron">
-    <div class="container">
+    <div class="container box">
         <br/>
         <h4>Ошибка приложения:</h4>
         <!--/*@thymesVar id="message" type="java.lang.String"*/-->
-        <h2 th:utext="${message}">message</h2>
+        <h2 th:utext="${status}">403</h2>
+        <p class="lead text-muted" th:utext="${message}">message</p>
     </div>
 </div>
 </body>
