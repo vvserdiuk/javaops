@@ -52,11 +52,19 @@ public class UserGroup extends BaseEntity {
         return user;
     }
 
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
     public ParticipationType getType() {
         return type;
     }
 
     public Group getGroup() {
         return group;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 }

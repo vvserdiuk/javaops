@@ -6,7 +6,6 @@ package ru.javaops.model;
  */
 public enum ParticipationType {
     REPEAT,
-    DUPLICATED,
     FIRST_REGISTERED,
-    REGISTERED,
+    REGISTERED;
 }

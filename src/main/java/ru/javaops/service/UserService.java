@@ -14,6 +14,8 @@ public interface UserService {
 
     Collection<User> getGroup(String groupName);
 
+    User findExistedByEmail(String email);
+
     User findByEmail(String email);
 
     void save(User u);

@@ -37,6 +37,10 @@ public class Group extends NamedEntity {
         return project;
     }
 
+    public GroupType getType() {
+        return type;
+    }
+
     @Override
     public String toString() {
         return "Group{" +

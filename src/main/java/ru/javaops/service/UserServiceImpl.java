@@ -13,6 +13,8 @@ import ru.javaops.repository.UserRepository;
 
 import java.util.Collection;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Authenticate a user from the database.
  */
@@ -57,6 +59,10 @@ public class UserServiceImpl implements UserService, org.springframework.securit
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
+    }
+
+    public User findExistedByEmail(String email) {
+        return checkNotNull(findByEmail(email), "User " + email + " not found");
     }
 
     @Override

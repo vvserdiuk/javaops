@@ -10,8 +10,17 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "payment")
 public class Payment extends BaseEntity {
+    public Payment() {
+    }
+
+    public Payment(int sum, Currency currency, String comment) {
+        this.sum = sum;
+        this.currency = currency;
+        this.comment = comment;
+    }
+
     @Column(name = "date")
-    private LocalDate date;
+    private LocalDate date = LocalDate.now();
 
     @Column(name = "sum")
     private int sum;

@@ -228,3 +228,4 @@ https://geektimes.ru/post/125155/
 ## Cascade
 http://stackoverflow.com/questions/5787551/should-i-let-jpa-or-the-database-cascade-deletions
 http://stackoverflow.com/questions/2856460/hibernate-doesnt-generate-cascade
+https://dzone.com/articles/spring-caching-abstraction-and
