@@ -12,6 +12,7 @@ import ru.javaops.model.User;
 import ru.javaops.repository.UserRepository;
 
 import java.util.Collection;
+import java.util.Set;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -63,6 +64,11 @@ public class UserServiceImpl implements UserService, org.springframework.securit
 
     public User findExistedByEmail(String email) {
         return checkNotNull(findByEmail(email), "User " + email + " not found");
+    }
+
+    @Override
+    public Set<User> findByGroupName(String groupName) {
+        return userRepository.findByGroupName(groupName);
     }
 
     @Override

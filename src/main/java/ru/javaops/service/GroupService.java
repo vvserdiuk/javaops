@@ -1,5 +1,6 @@
 package ru.javaops.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -13,9 +14,9 @@ import ru.javaops.repository.UserGroupRepository;
 import ru.javaops.to.UserTo;
 import ru.javaops.util.UserUtil;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
@@ -106,18 +107,54 @@ public class GroupService {
     }
 
     public ProjectGroups getProjectGroups(String projectName) {
-        List<Group> groups = getAll();
+        Collection<Group> groups = getAll();
         return new ProjectGroups(
                 getGroupByProjectAndType(groups, projectName, GroupType.REGISTERED),
                 getGroupByProjectAndType(groups, projectName, GroupType.CURRENT));
     }
 
-    private static Group getGroupByProjectAndType(List<Group> groups, String projectName, GroupType type) {
+    private static Group getGroupByProjectAndType(Collection<Group> groups, String projectName, GroupType type) {
         Optional<Group> group = groups.stream()
                 .filter(g -> g.getProject() != null && g.getProject().getName().equals(projectName) && (g.getType() == type))
                 .findFirst();
         checkState(group.isPresent(), "В проекте %s отсутствуют группы c типом %s", projectName, type);
         return group.get();
+    }
+
+    public Set<User> filterUserByGroupNames(String includes, String excludes) {
+        final List<Group> groups = getAll();
+        Set<User> includeUsers = filterUserByGroupNames(groups, includes);
+        if (StringUtils.isNoneEmpty(excludes)) {
+            Set<User> excludeUsers = filterUserByGroupNames(groups, excludes);
+            includeUsers.removeAll(excludeUsers);
+        }
+        return includeUsers;
+    }
+
+    private Set<User> filterUserByGroupNames(List<Group> groups, String groupNames) {
+        List<Predicate<String>> predicates = getMatcher(groupNames);
+
+        // filter users by predicates
+        return groups.stream().filter(group -> predicates.stream().anyMatch(p -> p.test(group.getName())))
+                .flatMap(group -> userService.findByGroupName(group.getName()).stream())
+                .collect(Collectors.toSet());
+    }
+
+    // group matches predicates
+    private List<Predicate<String>> getMatcher(String groupNames) {
+        return Arrays.stream(groupNames.split(","))
+                .map(String::trim)
+                .map(paramName -> paramName.charAt(paramName.length() - 1) == '*' ?
+                        new Predicate<String>() {
+                            final String startWith = StringUtils.chop(paramName);
+
+                            @Override
+                            public boolean test(String name) {
+                                return name.startsWith(startWith);
+                            }
+                        } :
+                        (Predicate<String>) paramName::equals
+                ).collect(Collectors.toList());
     }
 
     public static class ProjectGroups {

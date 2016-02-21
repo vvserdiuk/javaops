@@ -3,6 +3,7 @@ package ru.javaops.service;
 import ru.javaops.model.User;
 
 import java.util.Collection;
+import java.util.Set;
 
 /**
  * GKislin
@@ -17,6 +18,8 @@ public interface UserService {
     User findExistedByEmail(String email);
 
     User findByEmail(String email);
+
+    Set<User> findByGroupName(String email);
 
     void save(User u);
 }
