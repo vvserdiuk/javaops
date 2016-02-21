@@ -1,6 +1,8 @@
 package ru.javaops.service;
 
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -27,6 +29,8 @@ import static com.google.common.base.Preconditions.checkState;
  */
 @Service
 public class GroupService {
+    private final Logger log = LoggerFactory.getLogger(GroupService.class);
+
     @Autowired
     private GroupRepository groupRepository;
 
@@ -49,6 +53,7 @@ public class GroupService {
     }
 
     public List<Group> getAll() {
+        log.debug("getAll");
         List<Group> groups = groupRepository.findAll(new Sort("name"));
         Cache cache = cacheManager.getCache("group");
         groups.forEach(g -> cache.put(g.getName(), g));
@@ -56,11 +61,13 @@ public class GroupService {
     }
 
     public Set<Group> findByUserId(int userId) {
+        log.debug("findByUserId {}", userId);
         return groupRepository.findByUser(userId);
     }
 
     @Transactional
-    public UserGroup addToGroup(UserTo userTo, ProjectGroups projectGroups, String channel) {
+    public UserGroup registerAtProject(UserTo userTo, ProjectGroups projectGroups, String channel) {
+        log.info("add{} to project {}", userTo, projectGroups.project);
         User user = userService.findByEmail(userTo.getEmail());
         ParticipationType participationType;
 
@@ -97,6 +104,7 @@ public class GroupService {
 
     @Transactional
     public UserGroup pay(String email, String projectName, Payment payment) {
+        log.info("Pay from {} for {}: {}", email, payment);
         User u = userService.findExistedByEmail(email);
         ProjectGroups projectGroups = getProjectGroups(projectName);
         UserGroup ug = moveOrCreate(u, projectGroups.registeredGroup, projectGroups.currentGroup);

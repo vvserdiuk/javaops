@@ -31,4 +31,9 @@ public class Payment extends BaseEntity {
 
     @Column(name = "comment")
     private String comment;
+
+    @Override
+    public String toString() {
+        return "Payment(" + sum + currency + ':' + comment + ')';
+    }
 }

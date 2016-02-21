@@ -80,8 +80,8 @@ public class SubscriptionController {
     private ModelAndView register(String template, String confirmEmail, String channel, String successUrl, String failUrl,
                                   UserTo userTo, BindingResult result,
                                   ProjectGroups projectGroups) throws MessagingException {
-        LOG.info("{} registration at {}", userTo, projectGroups.project);
-        UserGroup userGroup = groupService.addToGroup(userTo, projectGroups, channel);
+
+        UserGroup userGroup = groupService.registerAtProject(userTo, projectGroups, channel);
         String mailResult = mailService.sendRegistration(template, projectGroups.project, userGroup, confirmEmail);
         return new ModelAndView("redirectToUrl", "redirectUrl", MailService.isOk(mailResult) ? successUrl : failUrl);
     }
