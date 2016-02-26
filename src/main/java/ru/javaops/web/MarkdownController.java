@@ -12,9 +12,9 @@ import ru.javaops.util.MarkdownUtil;
 @Controller
 public class MarkdownController {
 
-    @RequestMapping(value = "/lesson01")
+    @RequestMapping(value = "/lesson01") //test
     ModelAndView lesson01() {
-        String html =  new MarkdownUtil().toHtml(new FileSystemResource("resources/lesson01.md"));
+        String html =  MarkdownUtil.toHtml(new FileSystemResource("resources/lesson01.md"));
         return new ModelAndView("forMarkdown").addObject("text", html);
     }
 }
